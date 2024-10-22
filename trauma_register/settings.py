@@ -11,6 +11,16 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
+
+load_dotenv(override=True)
+
+variable_name_database = os.getenv('DB_NAME')
+variable_user = os.getenv('DB_USER')
+variable_password = os.getenv('DB_PASSWORD')
+variable_host = os.getenv('DB_HOST')
+variable_port = os.getenv('DB_PORT')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,6 +47,10 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "data_analysis",
+    "medical_records",
+    "upload_manager",
+    "rest_framework",
 ]
 
 MIDDLEWARE = [
@@ -75,8 +89,12 @@ WSGI_APPLICATION = "trauma_register.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": variable_name_database,
+        "USER": variable_user,
+        "PASSWORD": variable_password,
+        "HOST": variable_host,
+        "PORT": variable_port,
     }
 }
 
