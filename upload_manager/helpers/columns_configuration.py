@@ -54,7 +54,7 @@ columns_ubication : dict[str, dict[str,str]] = {
       "dias_de_hospitalizacion": "BN",
       "uci_dias": "BO",
       "detalles_de_hospitalizacion": "BP",
-      "disposicion_o_destino_del_paciente_del_hospitalizacionSTRIN": "BQ",
+      "disposicion_o_destino_del_paciente_del_hospitalizacion": "BQ",
       "donacion_de_organos_del_hospitalizacion": "BR",
       "autopsia_del_hospitalizacion": "BS",
       "muerte_prevenible_del_hospitalizacion": "BT",
