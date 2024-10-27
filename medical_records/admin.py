@@ -1,3 +1,28 @@
 from django.contrib import admin
+from .models import *
 
 # Register your models here.
+admin.site.register(PatientData)
+admin.site.register(HealthcareRecord)
+admin.site.register(InjuryRecord)
+admin.site.register(Collision)
+admin.site.register(DrugAbuse)
+admin.site.register(VitalSignGcsQualifier)
+admin.site.register(HospitalizationVariable)
+admin.site.register(HospitalizationComplication)
+admin.site.register(TraumaRegisterIcd10)
+admin.site.register(IntensiveCareUnit)
+admin.site.register(Imaging)
+admin.site.register(ApparentIntentInjury)
+admin.site.register(BurnInjury)
+admin.site.register(FirearmInjury)
+admin.site.register(PenetratingInjury)
+admin.site.register(PoisoningInjury)
+admin.site.register(ViolenceInjury)
+admin.site.register(Device)
+admin.site.register(Laboratory)
+admin.site.register(PhysicalExamBodyPartInjury)
+admin.site.register(Procedure)
+admin.site.register(PrehospitalProcedure)
+admin.site.register(TransportationMode)
+admin.site.register(VitalSign)
