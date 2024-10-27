@@ -4,7 +4,7 @@ from django.db import models
 
 # PatientData Model
 class PatientData(models.Model):
-    trauma_register_record_id = models.BigAutoField(primary_key=True)
+    trauma_register_record_id = models.BigIntegerField(primary_key=True)
     direccion_linea_1 = models.CharField(max_length=300, null=True, blank=True, default=None)
     direccion_linea_2 = models.CharField(max_length=300, null=True, blank=True, default=None)
     ciudad = models.CharField(max_length=300, null=True, blank=True, default=None)
@@ -15,7 +15,7 @@ class PatientData(models.Model):
     edad = models.IntegerField(null=True, blank=True, default=None)
     unidad_de_edad = models.CharField(max_length=9, null=True, blank=True, default=None)
     genero = models.CharField(max_length=30, null=True, blank=True, default=None)
-    fecha_de_nacimiento = models.DateTimeField(null=True, blank=True, default=None)
+    fecha_de_nacimiento = models.DateField(null=True, blank=True, default=None)
     ocupacion = models.CharField(max_length=300, null=True, blank=True, default=None)
     estado_civil = models.CharField(max_length=30, null=True, blank=True, default=None)
     nacionalidad = models.CharField(max_length=90, null=True, blank=True, default=None)
