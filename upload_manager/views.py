@@ -2,6 +2,7 @@ from datetime import datetime, date, time
 import tempfile
 import traceback
 import os
+# import pytz
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -33,13 +34,13 @@ class UploadView(APIView):
       patients_data: list[dict[str,str]] = result.pop(patients_key)
       patients_result: dict[str, list[dict[str, str]]]  = {patients_key: patients_data}
       self.save_elements_by_model(data_file=patients_result, column_name_type_to_model=column_name_type_to_model)
-      self.save_elements_by_model(data_file=result, column_name_type_to_model=column_name_type_to_model)
+      users_not_found: list[str] = self.save_elements_by_model(data_file=result, column_name_type_to_model=column_name_type_to_model)
         
       if serializer.is_valid():
         return Response({
           "user_name": user_name,
           # "result": {**result},
-          "result": {**patients_result}
+          "problems": users_not_found if len(users_not_found) else None,
         }, status=status.HTTP_202_ACCEPTED)
       return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
@@ -49,9 +50,10 @@ class UploadView(APIView):
     finally:
       os.remove(temp_file.name)
   
-  def save_elements_by_model(self, data_file: dict[str, list[dict[str,str]]], column_name_type_to_model: dict[str,dict[str,Model|dict[str,DataTypeCell]]]):
+  def save_elements_by_model(self, data_file: dict[str, list[dict[str,str]]], column_name_type_to_model: dict[str,dict[str,Model|dict[str,DataTypeCell]]]) -> list[str]:
     error_key: str
     error_table: str
+    users_not_found_information: list[str] = []
     try:
       for key_file in data_file:
         error_table = key_file
@@ -88,8 +90,7 @@ class UploadView(APIView):
               elif "-" in obtained_data[0]:
                 obtained_date = obtained_data[0].split("-")
               else:
-                the_error = f"ERROR(save_element_by_model.py in table: <{error_table}> and attribute: <{error_key}>): date format is wrong, because this is the result: {obtained_data}"
-                print(the_error)
+                the_error = f"Date format is wrong, because this is the result: {obtained_data}"
                 raise Exception(the_error)
               obtained_time = obtained_data[1].split(":")  
               obtained_date_time = datetime(
@@ -99,6 +100,7 @@ class UploadView(APIView):
                 hour=int(obtained_time[0]), 
                 minute=int(obtained_time[1]), 
                 second=int(obtained_time[2]),
+                # tzinfo=pytz.timezone(zone="America/Bogota")
               )
               updated_data[key_cell] = obtained_date_time
             elif data_type_cell == DataTypeCell.TIME: #! It assumed that the format in excel file is saved as "hh:mm:ss"
@@ -107,6 +109,7 @@ class UploadView(APIView):
                 hour=int(obtained_data[0]), 
                 minute=int(obtained_data[1]), 
                 second=int(obtained_data[2]),
+                # tzinfo=pytz.timezone(zone="America/Bogota"),
               )
               updated_data[key_cell] = obtained_time
             elif data_type_cell == DataTypeCell.DATE: #! It assumed that the format in excel file is saved as "DD/MM/YYYY"
@@ -117,7 +120,8 @@ class UploadView(APIView):
               elif "-" in data_cell:
                 obtained_data = data_cell.split("-")
               else:
-                raise f"ERROR(save_element_by_model.py in table: <{error_table}> and attribute: <{error_key}>): date format is wrong" #! TODO: condition this flow!
+                error = f"Date format is wrong"
+                raise Exception(error)
               obtained_date = date(
                 year=int(obtained_data[2]), 
                 month=int(obtained_data[1]), 
@@ -128,12 +132,16 @@ class UploadView(APIView):
               try:
                 patient_data = PatientData.objects.get(trauma_register_record_id=int(data_cell))
                 updated_data[key_cell] = patient_data
-              except Exception as e:
-                print(f"ERROR: PatienData in the table <{error_table}> with id <{data_cell}> doesn't exist: {type(e)} - {e}")
-                raise e
-            else:
-              raise Exception(f"ERROR: DataTypeCell value doesn't exist, please establish the attribute {key_cell} in columns_configuration.py with DataTypeCell enum")
-          model(**updated_data).save()
+              except PatientData.DoesNotExist as e:
+                error = f"PatienData in table <{error_table}> with key <{data_cell}> doesn't exist"
+                users_not_found_information.append(error)
+                updated_data[key_cell] = None
+                break
+          if updated_data["trauma_register_record_id"]: model(**updated_data).save()
+    except KeyError as e:
+      print(f"ERROR(save_element_by_model.py in table: <{error_table}> and attribute: <{error_key}>): DataTypeCell value doesn't exist, please establish the attribute {error_key} from the table{error_table} in columns_configuration.py with DataTypeCell enum")
+      raise e
     except Exception as e:
       print(f"ERROR(save_element_by_model.py in table: <{error_table}> and attribute: <{error_key}>): {type(e)} - {e}")
       raise e
+    return users_not_found_information
