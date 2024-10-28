@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from .serializers import UploadSerializer
 from .helpers.gestor_excel_file_data import GestorExcelFileData, GestorExcelSheetData
-from .helpers.columns_configuration import columns_ubication, column_name_type_to_model, DataTypeCell
+from .helpers.columns_configuration import columns_ubication, column_name_type_to_model, DataTypeCell, PatientData
 from django.db.models import Model
 
 class UploadView(APIView):
@@ -32,7 +32,8 @@ class UploadView(APIView):
       patients_key = 'Trauma Register:1'
       patients_data: list[dict[str,str]] = result.pop(patients_key)
       patients_result: dict[str, list[dict[str, str]]]  = {patients_key: patients_data}
-      self.save_elements_by_model(data_file=patients_result, column_name_type_to_model=column_name_type_to_model) 
+      self.save_elements_by_model(data_file=patients_result, column_name_type_to_model=column_name_type_to_model)
+      self.save_elements_by_model(data_file=result, column_name_type_to_model=column_name_type_to_model)
         
       if serializer.is_valid():
         return Response({
@@ -49,16 +50,20 @@ class UploadView(APIView):
       os.remove(temp_file.name)
   
   def save_elements_by_model(self, data_file: dict[str, list[dict[str,str]]], column_name_type_to_model: dict[str,dict[str,Model|dict[str,DataTypeCell]]]):
+    error_key: str
+    error_table: str
     try:
       for key_file in data_file:
+        error_table = key_file
         data_sheet = data_file[key_file]
         model = column_name_type_to_model[key_file]["model"]
         for data_row in data_sheet:
-          updated_data: dict[str,str|int|float|bool|datetime|date|time|None] = {}
+          updated_data: dict[str,str|int|float|bool|datetime|date|time|PatientData|None] = {}
           for key_cell in data_row:
+            error_key = key_cell 
             #! Here the data is converted according with their type
             data_type_cell: DataTypeCell = column_name_type_to_model[key_file]["type"][key_cell]
-            data_cell: str | int | bool = data_row[key_cell].strip()
+            data_cell: str = data_row[key_cell].strip()
             if data_cell == "None" or len(data_cell) == 0: continue
             if data_type_cell == DataTypeCell.STRING or data_type_cell == DataTypeCell.TEXT:
               updated_data[key_cell] = data_cell
@@ -76,38 +81,59 @@ class UploadView(APIView):
                 boolean_result = None
               updated_data[key_cell] = boolean_result
             elif data_type_cell == DataTypeCell.TIMESTAMP: #! It assumed that the format in excel file is saved as "DD/MM/YYYY hh:mm:ss" 
-              date_and_time = data_cell.split(" ")
-              obtained_date = date_and_time[0].split("/")
-              obtained_time = date_and_time[1].split(":")
+              obtained_data = data_cell.split(" ")
+              obtained_date: list[str]
+              if "/" in obtained_data[0]:
+                obtained_date = obtained_data[0].split("/")
+              elif "-" in obtained_data[0]:
+                obtained_date = obtained_data[0].split("-")
+              else:
+                the_error = f"ERROR(save_element_by_model.py in table: <{error_table}> and attribute: <{error_key}>): date format is wrong, because this is the result: {obtained_data}"
+                print(the_error)
+                raise Exception(the_error)
+              obtained_time = obtained_data[1].split(":")  
               obtained_date_time = datetime(
-                year=int(data[2]), 
-                month=int(data[1]), 
-                day=int(data[0]), 
+                year=int(obtained_date[2] if len(obtained_date[2]) == 4 else obtained_date[0]), #! change later, because it occurs only if the cell isn't general type
+                month=int(obtained_date[1]), 
+                day=int(obtained_date[0] if len(obtained_date[0]) == 2 else obtained_date[2]), #! change later, because it occurs only if the cell isn't general type
                 hour=int(obtained_time[0]), 
                 minute=int(obtained_time[1]), 
                 second=int(obtained_time[2]),
               )
               updated_data[key_cell] = obtained_date_time
             elif data_type_cell == DataTypeCell.TIME: #! It assumed that the format in excel file is saved as "hh:mm:ss"
-              obtained_time = data_cell.split(":")
-              obtained_date_time = time(
-                hour=int(obtained_time[0]), 
-                minute=int(obtained_time[1]), 
-                second=int(obtained_time[2]),
+              obtained_data = data_cell.split(":")
+              obtained_time = time(
+                hour=int(obtained_data[0]), 
+                minute=int(obtained_data[1]), 
+                second=int(obtained_data[2]),
               )
-              updated_data[key_cell] = obtained_date_time
+              updated_data[key_cell] = obtained_time
             elif data_type_cell == DataTypeCell.DATE: #! It assumed that the format in excel file is saved as "DD/MM/YYYY"
-              data = data_cell.split("/") 
-              if len(data) < 3: continue
+              
+              obtained_data: list[str]
+              if "/" in data_cell:
+                obtained_data = data_cell.split("/")
+              elif "-" in data_cell:
+                obtained_data = data_cell.split("-")
+              else:
+                raise f"ERROR(save_element_by_model.py in table: <{error_table}> and attribute: <{error_key}>): date format is wrong" #! TODO: condition this flow!
               obtained_date = date(
-                year=int(data[2]), 
-                month=int(data[1]), 
-                day=int(data[0]),
+                year=int(obtained_data[2]), 
+                month=int(obtained_data[1]), 
+                day=int(obtained_data[0]),
               )
               updated_data[key_cell] = obtained_date
+            elif data_type_cell == DataTypeCell.FK:
+              try:
+                patient_data = PatientData.objects.get(trauma_register_record_id=int(data_cell))
+                updated_data[key_cell] = patient_data
+              except Exception as e:
+                print(f"ERROR: PatienData in the table <{error_table}> with id <{data_cell}> doesn't exist: {type(e)} - {e}")
+                raise e
             else:
-              raise f"ERROR: DataTypeCell value doesn't exist, please establish the attribute {key_cell} in columns_configuration.py with DataTypeCell enum"
+              raise Exception(f"ERROR: DataTypeCell value doesn't exist, please establish the attribute {key_cell} in columns_configuration.py with DataTypeCell enum")
           model(**updated_data).save()
     except Exception as e:
-      print(F"ERROR(save_element_by_model): {type(e)} - {e}")
+      print(f"ERROR(save_element_by_model.py in table: <{error_table}> and attribute: <{error_key}>): {type(e)} - {e}")
       raise e

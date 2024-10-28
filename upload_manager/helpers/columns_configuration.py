@@ -4,6 +4,7 @@ from django.db.models import Model
 #! NOTE: If you want to create two or more tables from one sheet, you must finish with the character ":" followed by its numeral 
 
 class DataTypeCell(enum.Enum):
+  FK = "foreign_key"
   STRING = "string"
   INT = "int"
   TIMESTAMP = "timestamp"
@@ -313,7 +314,7 @@ column_name_type_to_model : dict[str,dict[str,Model|dict[str,DataTypeCell]]] = {
     "Trauma Register:2": {
       "model": HealthcareRecord,
       "type": {
-        "trauma_register_record_id": DataTypeCell.INT,
+        "trauma_register_record_id": DataTypeCell.FK,
         "numero_de_historia_clinica": DataTypeCell.STRING,
         "hospital": DataTypeCell.STRING,
         "fecha_y_hora_de_llegada_del_paciente": DataTypeCell.TIMESTAMP,
@@ -420,7 +421,7 @@ column_name_type_to_model : dict[str,dict[str,Model|dict[str,DataTypeCell]]] = {
     "Trauma Register:3": {
       "model": InjuryRecord,
       "type": {
-        "trauma_register_record_id": DataTypeCell.INT,
+        "trauma_register_record_id": DataTypeCell.FK,
         "consumo_de_alcohol": DataTypeCell.STRING,
         "valor_de_alcoholemia": DataTypeCell.DECIMAL,
         "unidad_de_alcohol": DataTypeCell.STRING,
@@ -445,28 +446,28 @@ column_name_type_to_model : dict[str,dict[str,Model|dict[str,DataTypeCell]]] = {
     "Collision": {
       "model": Collision,
       "type": {
-        "trauma_register_record_id": DataTypeCell.INT,
+        "trauma_register_record_id": DataTypeCell.FK,
         "tipo_de_colision": DataTypeCell.STRING,
       }
     },
     "Drug Abuse": {
       "model": DrugAbuse,
       "type": {
-        "trauma_register_record_id": DataTypeCell.INT,
+        "trauma_register_record_id": DataTypeCell.FK,
         "tipo_de_droga": DataTypeCell.STRING,
       }
     },
     "Vital Sign GCS Qualifier": {
       "model": VitalSignGcsQualifier,
       "type": {
-        "trauma_register_record_id": DataTypeCell.INT,
+        "trauma_register_record_id": DataTypeCell.FK,
         "calificador_gcs": DataTypeCell.STRING,
       }
     },
     "Hospitalization Variable": {
       "model": HospitalizationVariable,
       "type": {
-        "trauma_register_record_id": DataTypeCell.INT,
+        "trauma_register_record_id": DataTypeCell.FK,
         "tipo_de_variable": DataTypeCell.STRING,
         "valor_de_la_variable": DataTypeCell.STRING,
         "fecha_y_hora_de_la_variable": DataTypeCell.TIMESTAMP,
@@ -476,7 +477,7 @@ column_name_type_to_model : dict[str,dict[str,Model|dict[str,DataTypeCell]]] = {
     "Hospitalization Complication": {
       "model": HospitalizationComplication,
       "type": {
-        "trauma_register_record_id": DataTypeCell.INT,
+        "trauma_register_record_id": DataTypeCell.FK,
         "tipo_de_complicacion": DataTypeCell.STRING,
         "fecha_y_hora_de_complicacion": DataTypeCell.TIMESTAMP,
         "lugar_de_complicacion": DataTypeCell.STRING,
@@ -485,7 +486,7 @@ column_name_type_to_model : dict[str,dict[str,Model|dict[str,DataTypeCell]]] = {
     "Trauma Register ICD10": {
       "model": TraumaRegisterIcd10,
       "type": {
-        "trauma_register_record_id": DataTypeCell.INT,
+        "trauma_register_record_id": DataTypeCell.FK,
         "descripcion": DataTypeCell.TEXT,
         "mecanismo_icd": DataTypeCell.STRING,
       }
@@ -493,7 +494,7 @@ column_name_type_to_model : dict[str,dict[str,Model|dict[str,DataTypeCell]]] = {
     "Intensive Care Unit": {
       "model": IntensiveCareUnit,
       "type": {
-        "trauma_register_record_id": DataTypeCell.INT,
+        "trauma_register_record_id": DataTypeCell.FK,
         "tipo": DataTypeCell.STRING,
         "fecha_y_hora_de_inicio": DataTypeCell.TIMESTAMP,
         "fecha_y_hora_de_termino": DataTypeCell.TIMESTAMP,
@@ -504,7 +505,7 @@ column_name_type_to_model : dict[str,dict[str,Model|dict[str,DataTypeCell]]] = {
     "Imaging": {
       "model": Imaging,
       "type": {
-        "trauma_register_record_id": DataTypeCell.INT,
+        "trauma_register_record_id": DataTypeCell.FK,
         "tipo_de_imagen": DataTypeCell.STRING,
         "parte_del_cuerpo": DataTypeCell.STRING,
         "opcion": DataTypeCell.BOOLEAN,
@@ -514,14 +515,14 @@ column_name_type_to_model : dict[str,dict[str,Model|dict[str,DataTypeCell]]] = {
     "Apparent Intent Injury": {
       "model": ApparentIntentInjury,
       "type": {
-        "trauma_register_record_id": DataTypeCell.INT,
+        "trauma_register_record_id": DataTypeCell.FK,
         "intencion_aparente": DataTypeCell.STRING,
       }
     },
     "Burn Injury": {
       "model": BurnInjury,
       "type": {
-        "trauma_register_record_id": DataTypeCell.INT,
+        "trauma_register_record_id": DataTypeCell.FK,
         "tipo_de_quemadura": DataTypeCell.STRING,
         "grado_de_quemadura": DataTypeCell.STRING,
       }
@@ -529,42 +530,42 @@ column_name_type_to_model : dict[str,dict[str,Model|dict[str,DataTypeCell]]] = {
     "Firearm Injury": {
       "model": FirearmInjury,
       "type": {
-        "trauma_register_record_id": DataTypeCell.INT,
+        "trauma_register_record_id": DataTypeCell.FK,
         "tipo_de_arma_de_fuego": DataTypeCell.STRING,
       }
     },
     "Penetrating Injury": {
       "model": PenetratingInjury,
       "type": {
-        "trauma_register_record_id": DataTypeCell.INT,
+        "trauma_register_record_id": DataTypeCell.FK,
         "tipo_de_lesion_penetrante": DataTypeCell.STRING,
       }
     },
     "Poisoning Injury": {
       "model": PoisoningInjury,
       "type": {
-        "trauma_register_record_id": DataTypeCell.INT,
+        "trauma_register_record_id": DataTypeCell.FK,
         "tipo_de_envenenamiento": DataTypeCell.STRING,
       }
     },
     "Violence Injury": {
       "model": ViolenceInjury,
       "type": {
-        "trauma_register_record_id": DataTypeCell.INT,
+        "trauma_register_record_id": DataTypeCell.FK,
         "tipo_de_violencia": DataTypeCell.STRING,
       }
     },
     "Device": {
       "model": Device,
       "type": {
-        "trauma_register_record_id": DataTypeCell.INT,
+        "trauma_register_record_id": DataTypeCell.FK,
         "tipo_de_dispositivo": DataTypeCell.STRING,
       }
     },
     "Laboratory": {
       "model": Laboratory,
       "type": {
-        "trauma_register_record_id": DataTypeCell.INT,
+        "trauma_register_record_id": DataTypeCell.FK,
         "resultado_de_laboratorio": DataTypeCell.STRING,
         "fecha_y_hora_de_laboratorio": DataTypeCell.TIMESTAMP,
         "nombre_del_laboratorio": DataTypeCell.STRING,
@@ -574,7 +575,7 @@ column_name_type_to_model : dict[str,dict[str,Model|dict[str,DataTypeCell]]] = {
     "Physical Exam Body Part Injury": {
       "model": PhysicalExamBodyPartInjury,
       "type": {
-        "trauma_register_record_id": DataTypeCell.INT,
+        "trauma_register_record_id": DataTypeCell.FK,
         "parte_del_cuerpo": DataTypeCell.STRING,
         "tipo_de_lesion": DataTypeCell.STRING,
       }
@@ -582,7 +583,7 @@ column_name_type_to_model : dict[str,dict[str,Model|dict[str,DataTypeCell]]] = {
     "Procedure": {
       "model": Procedure,
       "type": {
-        "trauma_register_record_id": DataTypeCell.INT,
+        "trauma_register_record_id": DataTypeCell.FK,
         "procedimiento_realizado": DataTypeCell.STRING,
         "fecha_y_hora_de_inicio": DataTypeCell.TIMESTAMP,
         "fecha_y_hora_de_termino": DataTypeCell.TIMESTAMP,
@@ -592,14 +593,14 @@ column_name_type_to_model : dict[str,dict[str,Model|dict[str,DataTypeCell]]] = {
     "Prehospital Procedure": {
       "model": PrehospitalProcedure,
       "type": {
-        "trauma_register_record_id": DataTypeCell.INT,
+        "trauma_register_record_id": DataTypeCell.FK,
         "procedimiento_realizado": DataTypeCell.STRING,
       }
     },
     "Transportation Mode": {
       "model": TransportationMode,
       "type": {
-        "trauma_register_record_id": DataTypeCell.INT,
+        "trauma_register_record_id": DataTypeCell.FK,
         "modo_de_transporte": DataTypeCell.STRING,
       }
     },
@@ -607,7 +608,7 @@ column_name_type_to_model : dict[str,dict[str,Model|dict[str,DataTypeCell]]] = {
       "model": VitalSign,
       "type": {
         "record_id": DataTypeCell.INT,
-        "trauma_register_record_id": DataTypeCell.INT,
+        "trauma_register_record_id": DataTypeCell.FK,
         "fecha_y_hora_de_signos_vitales": DataTypeCell.TIMESTAMP,
         "signos_de_vida": DataTypeCell.BOOLEAN,
         "frecuencia_cardiaca": DataTypeCell.INT,
