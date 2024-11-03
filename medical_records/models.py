@@ -421,7 +421,7 @@ class VitalSign(models.Model):
     temperatura_celsius = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True, default=None)
     peso_kg = models.DecimalField(max_digits=5, decimal_places=2, null=True, blank=True, default=None)
     altura_metros = models.DecimalField(max_digits=3, decimal_places=2, null=True, blank=True, default=None)
-    saturacion_de_oxigeno = models.SmallIntegerField(null=True, blank=True, default=None)
+    saturacion_de_oxigeno = models.DecimalField(max_digits=4, decimal_places=2, null=True, blank=True, default=None)
     perdida_de_conciencia = models.CharField(max_length=30, null=True, blank=True, default=None)
     duracion_de_perdida_de_conciencia = models.TimeField(null=True, blank=True, default=None)
     gcs_motora = models.SmallIntegerField(null=True, blank=True, default=None)

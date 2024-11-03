@@ -619,7 +619,7 @@ column_name_type_to_model : dict[str,dict[str,Model|dict[str,DataTypeCell]]] = {
         "temperatura_celsius": DataTypeCell.DECIMAL,
         "peso_kg": DataTypeCell.DECIMAL,
         "altura_metros": DataTypeCell.DECIMAL,
-        "saturacion_de_oxigeno": DataTypeCell.INT,
+        "saturacion_de_oxigeno": DataTypeCell.DECIMAL,
         "perdida_de_conciencia": DataTypeCell.STRING,
         "duracion_de_perdida_de_conciencia": DataTypeCell.TIME,
         "gcs_motora": DataTypeCell.INT,
