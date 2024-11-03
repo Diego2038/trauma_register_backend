@@ -1,4 +1,5 @@
 from datetime import datetime, date, time
+import time as count_time
 import tempfile
 import traceback
 import os
@@ -10,17 +11,24 @@ from .serializers import UploadSerializer
 from .helpers.gestor_excel_file_data import GestorExcelFileData, GestorExcelSheetData
 from .helpers.columns_configuration import columns_ubication, column_name_type_to_model, DataTypeCell, PatientData
 from django.db.models import Model
+from django.db.utils import DataError 
 
 class UploadView(APIView):
   
   def post(self, request):
+    init_time_endpoint = count_time.time() #? Calculate time
     serializer = UploadSerializer(data=request.data)
     file = request.data["file"]
     user_name = request.data["user"]
+    print(f'LOG: Execution time (Building Excel file)...') #? Calculate time 
+    init_time = count_time.time() #? Calculate time
     with tempfile.NamedTemporaryFile(delete=False, suffix=".xlsx") as temp_file:
       for chunk in file.chunks():
         temp_file.write(chunk)
       temp_file.flush()
+    finish_time = count_time.time() #? Calculate time
+    elapsed_time = finish_time - init_time  #? Calculate time
+    print(f'LOG: Execution time (Excel file was built): {elapsed_time:.4f} seconds') #? Calculate time 
     
     gestor_excel_file_data = GestorExcelFileData(
       sheets_columns_configuration=columns_ubication,
@@ -49,13 +57,19 @@ class UploadView(APIView):
     
     finally:
       os.remove(temp_file.name)
+      finish_time_endpoint = count_time.time() #? Calculate time
+      elapsed_time = finish_time_endpoint - init_time_endpoint  #? Calculate time
+      print(f'LOG: Time elapsed from "upload_manager/upload/" endpoint: {elapsed_time:.4f} seconds') #? Calculate time 
   
   def save_elements_by_model(self, data_file: dict[str, list[dict[str,str]]], column_name_type_to_model: dict[str,dict[str,Model|dict[str,DataTypeCell]]]) -> list[str]:
     error_key: str
     error_table: str
+    error_id: str
     users_not_found_information: list[str] = []
+    init_time = count_time.time() #? Calculate time
     try:
       for key_file in data_file:
+        start_time = count_time.time() #? Calculate time
         error_table = key_file
         data_sheet = data_file[key_file]
         model = column_name_type_to_model[key_file]["model"]
@@ -129,6 +143,7 @@ class UploadView(APIView):
               )
               updated_data[key_cell] = obtained_date
             elif data_type_cell == DataTypeCell.FK:
+              error_id = data_cell
               try:
                 patient_data = PatientData.objects.get(trauma_register_record_id=int(data_cell))
                 updated_data[key_cell] = patient_data
@@ -137,11 +152,23 @@ class UploadView(APIView):
                 users_not_found_information.append(error)
                 updated_data[key_cell] = None
                 break
-          if updated_data["trauma_register_record_id"]: model(**updated_data).save()
+          if updated_data["trauma_register_record_id"]: 
+            try:
+              model(**updated_data).save()
+            except DataError as e:
+              users_not_found_information.append(f"ERROR CREATION: In table: <{error_table}> with trauma_register_id: <{error_id}>): {e}")
+        end_time = count_time.time() #? Calculate time
+        elapsed_time = end_time - start_time  #? Calculate time
+        print(f'LOG: Execution time (elements created from sheet called "{error_table}"): {elapsed_time:.4f} seconds') #? Calculate time 
+          
     except KeyError as e:
       print(f"ERROR(save_element_by_model.py in table: <{error_table}> and attribute: <{error_key}>): DataTypeCell value doesn't exist, please establish the attribute {error_key} from the table{error_table} in columns_configuration.py with DataTypeCell enum")
       raise e
     except Exception as e:
-      print(f"ERROR(save_element_by_model.py in table: <{error_table}> and attribute: <{error_key}>): {type(e)} - {e}")
+      print(f"ERROR(save_element_by_model.py in table: <{error_table}> and attribute: <{error_key}> with trauma_register_id: <{error_id}>): {type(e)} - {e}")
       raise e
+    finally:
+      finish_time = count_time.time() #? Calculate time
+      elapsed_time = finish_time - init_time  #? Calculate time
+      print(f'LOG: Execution time (all elements created): {elapsed_time:.4f} seconds') #? Calculate time 
     return users_not_found_information
