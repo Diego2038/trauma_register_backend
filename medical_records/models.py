@@ -4,7 +4,7 @@ from django.db import models
 
 # PatientData Model
 class PatientData(models.Model):
-    trauma_register_record_id = models.BigIntegerField(primary_key=True)
+    trauma_register_record_id = models.BigIntegerField(primary_key=True, unique=True)
     direccion_linea_1 = models.CharField(max_length=300, null=True, blank=True, default=None)
     direccion_linea_2 = models.CharField(max_length=300, null=True, blank=True, default=None)
     ciudad = models.CharField(max_length=300, null=True, blank=True, default=None)
