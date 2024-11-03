@@ -2,7 +2,7 @@ from datetime import datetime, date, time
 import tempfile
 import traceback
 import os
-# import pytz
+import pytz
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
@@ -100,7 +100,7 @@ class UploadView(APIView):
                 hour=int(obtained_time[0]), 
                 minute=int(obtained_time[1]), 
                 second=int(obtained_time[2]),
-                # tzinfo=pytz.timezone(zone="America/Bogota")
+                tzinfo=pytz.timezone(zone="America/Bogota")
               )
               updated_data[key_cell] = obtained_date_time
             elif data_type_cell == DataTypeCell.TIME: #! It assumed that the format in excel file is saved as "hh:mm:ss"
@@ -109,7 +109,7 @@ class UploadView(APIView):
                 hour=int(obtained_data[0]), 
                 minute=int(obtained_data[1]), 
                 second=int(obtained_data[2]),
-                # tzinfo=pytz.timezone(zone="America/Bogota"),
+                tzinfo=pytz.timezone(zone="America/Bogota"),
               )
               updated_data[key_cell] = obtained_time
             elif data_type_cell == DataTypeCell.DATE: #! It assumed that the format in excel file is saved as "DD/MM/YYYY"
