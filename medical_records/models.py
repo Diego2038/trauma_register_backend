@@ -1,10 +1,10 @@
 from django.db import models
-
+from django.core.exceptions import ValidationError
 from django.db import models
 
 # PatientData Model
 class PatientData(models.Model):
-    trauma_register_record_id = models.BigIntegerField(primary_key=True, unique=True)
+    trauma_register_record_id = models.BigIntegerField(primary_key=True)
     direccion_linea_1 = models.CharField(max_length=300, null=True, blank=True, default=None)
     direccion_linea_2 = models.CharField(max_length=300, null=True, blank=True, default=None)
     ciudad = models.CharField(max_length=300, null=True, blank=True, default=None)
@@ -28,6 +28,12 @@ class PatientData(models.Model):
 
     def __str__(self):
         return f"PatientData {self.trauma_register_record_id}"
+    
+    def save(self, *args, **kwargs):
+        result = PatientData.objects.filter(trauma_register_record_id=self.trauma_register_record_id).exists()
+        if result:
+            raise ValidationError(f"The patient with the ID {self.trauma_register_record_id} already exists!")
+        super().save(*args, **kwargs)
 
 # HealthcareRecord Model
 class HealthcareRecord(models.Model):

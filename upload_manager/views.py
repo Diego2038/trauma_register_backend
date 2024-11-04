@@ -11,7 +11,8 @@ from .serializers import UploadSerializer
 from .helpers.gestor_excel_file_data import GestorExcelFileData, GestorExcelSheetData
 from .helpers.columns_configuration import columns_ubication, column_name_type_to_model, DataTypeCell, PatientData
 from django.db.models import Model
-from django.db.utils import DataError 
+from django.db.utils import DataError
+from django.db import transaction
 
 class UploadView(APIView):
   
@@ -19,7 +20,9 @@ class UploadView(APIView):
     init_time_endpoint = count_time.time() #? Calculate time
     serializer = UploadSerializer(data=request.data)
     file = request.data["file"]
-    user_name = request.data["user"]
+    user_name: str = request.data["user"]
+    update_data: bool = str(request.data["update_data"]).lower() == "true"
+    print(f'LOG: Is it allowed to update data in the database?: {update_data}') 
     print(f'LOG: Execution time (Building Excel file)...') #? Calculate time 
     init_time = count_time.time() #? Calculate time
     with tempfile.NamedTemporaryFile(delete=False, suffix=".xlsx") as temp_file:
@@ -40,13 +43,18 @@ class UploadView(APIView):
       result = gestor_excel_file_data.get_data_from_file()
       patients_key = 'Trauma Register:1'
       patients_data: list[dict[str,str]] = result.pop(patients_key)
+      patients_to_be_updated: list[str] = []
+      if update_data:
+        patients_to_be_updated = self.delete_existing_data(patient_data=patients_data)
       patients_result: dict[str, list[dict[str, str]]]  = {patients_key: patients_data}
       self.save_elements_by_model(data_file=patients_result, column_name_type_to_model=column_name_type_to_model)
-      users_not_found: list[str] = self.save_elements_by_model(data_file=result, column_name_type_to_model=column_name_type_to_model)
+      users_not_found: list[str] = self.save_elements_by_model(data_file=result, column_name_type_to_model=column_name_type_to_model, existing_patients=patients_to_be_updated)
         
       if serializer.is_valid():
         return Response({
-          "user_name": user_name,
+          "user": user_name,
+          "allow_update_data": update_data,
+          "updated_patients": patients_to_be_updated,
           # "result": {**result},
           "problems": users_not_found if len(users_not_found) else None,
         }, status=status.HTTP_202_ACCEPTED)
@@ -61,10 +69,24 @@ class UploadView(APIView):
       elapsed_time = finish_time_endpoint - init_time_endpoint  #? Calculate time
       print(f'LOG: Time elapsed from "upload_manager/upload/" endpoint: {elapsed_time:.4f} seconds') #? Calculate time 
   
-  def save_elements_by_model(self, data_file: dict[str, list[dict[str,str]]], column_name_type_to_model: dict[str,dict[str,Model|dict[str,DataTypeCell]]]) -> list[str]:
-    error_key: str
-    error_table: str
-    error_id: str
+  def delete_existing_data(self, patient_data: list[dict[str,str]]) -> list[str]:
+    repeteated_users: str = []
+    for data in patient_data:
+      try:
+        id_patient = data["trauma_register_record_id"]
+        patient = PatientData.objects.get(trauma_register_record_id=int(id_patient))
+        repeteated_users.append(id_patient)
+        patient.delete()
+      except PatientData.DoesNotExist:
+        continue
+    print(f"LOG: Users to be updated: {len(repeteated_users)}")
+    return repeteated_users
+  
+  
+  def save_elements_by_model(self, data_file: dict[str, list[dict[str,str]]], column_name_type_to_model: dict[str,dict[str,Model|dict[str,DataTypeCell]]], existing_patients: list[str] = []) -> list[str]:
+    error_key: str = None
+    error_table: str = None
+    error_id: str = None
     users_not_found_information: list[str] = []
     init_time = count_time.time() #? Calculate time
     try:
@@ -74,6 +96,7 @@ class UploadView(APIView):
         data_sheet = data_file[key_file]
         model = column_name_type_to_model[key_file]["model"]
         for data_row in data_sheet:
+          if data_row["trauma_register_record_id"] in existing_patients: continue
           updated_data: dict[str,str|int|float|bool|datetime|date|time|PatientData|None] = {}
           for key_cell in data_row:
             error_key = key_cell 

@@ -3,4 +3,4 @@ from rest_framework import serializers
 class UploadSerializer(serializers.Serializer):
   
   class Meta:
-    fields = ["file", "user"]
+    fields = ["file", "user", "update_data",]
