@@ -12,6 +12,7 @@ from .helpers.gestor_excel_file_data import GestorExcelFileData, GestorExcelShee
 from .helpers.columns_configuration import columns_ubication, column_name_type_to_model, DataTypeCell, PatientData
 from django.db.models import Model
 from django.db.utils import DataError
+from django.core.exceptions import ValidationError
 from django.db import transaction
 
 class UploadView(APIView):
@@ -59,6 +60,12 @@ class UploadView(APIView):
           "problems": users_not_found if len(users_not_found) else None,
         }, status=status.HTTP_202_ACCEPTED)
       return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except ValidationError as ve:
+      return Response({
+          "error": "The file has data that already exists in the database, please change the parameter \"allow_update_data\" with true or delete any data related to the patient ID",
+          "allow_update_data": update_data,
+          "specific_error": ve,
+        }, status=status.HTTP_409_CONFLICT)
     except Exception as e:
       print(F"ERROR: {type(e)} - {e}")
       traceback.print_exc()
