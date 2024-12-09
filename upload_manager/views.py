@@ -105,6 +105,12 @@ class UploadView(APIView):
         error_table = key_file
         data_sheet = data_file[key_file]
         model = column_name_type_to_model[key_file]["model"]
+        time_hour_minute: dict[str, any] = {
+          "name_hour": "",
+          "value_hour": 0,
+          "name_minute": "",
+          "value_minute": 0,
+        }
         for data_row in data_sheet:
           if only_update and existing_patients:
             if not data_row["trauma_register_record_id"] in existing_patients:
@@ -119,7 +125,14 @@ class UploadView(APIView):
             if data_type_cell == DataTypeCell.STRING or data_type_cell == DataTypeCell.TEXT:
               updated_data[key_cell] = data_cell
             elif data_type_cell == DataTypeCell.INT:
-              updated_data[key_cell] = int(data_cell)
+              # updated_data[key_cell] = int(data_cell)
+              self._update_value_hours_and_minutes(
+                key_cell=key_cell, 
+                time_hour_minute=time_hour_minute, 
+                data_row=data_row, 
+                updated_data=updated_data,
+                foreign_value=data_cell,
+              )
             elif data_type_cell == DataTypeCell.DECIMAL:
               updated_data[key_cell] = float(data_cell)
             elif data_type_cell == DataTypeCell.BOOLEAN:
@@ -207,3 +220,40 @@ class UploadView(APIView):
       elapsed_time = finish_time - init_time  #? Calculate time
       print(f'LOG: Execution time (all elements created): {elapsed_time:.4f} seconds') #? Calculate time 
     return users_not_found_information
+  
+  def _update_value_hours_and_minutes(
+    self,
+    key_cell: str, 
+    time_hour_minute: dict[str, any], 
+    data_row: dict[str, str], 
+    updated_data: dict[str,str|int|float|bool|datetime|date|time|PatientData|None],
+    foreign_value: str,
+  ):
+    try:
+      if key_cell.split("_")[-1] in "horas":
+        data_cell: str = data_row[key_cell].strip()
+        time_hour_minute["value_hour"] = int(data_cell)
+        time_hour_minute["name_hour"] = key_cell
+        updated_data[time_hour_minute["name_hour"]] = int(time_hour_minute["value_hour"])
+        
+      elif key_cell.split("_")[-1] in "minutos":
+        # if ( time_hour_minute["name_hour"] == "tiempo_de_extricacion_hora"): print("AAAAA")
+        data_cell: str = data_row[key_cell].strip()
+        time_hour_minute["value_minute"] = int(data_cell)
+        time_hour_minute["name_minute"] = key_cell
+        value_minute: int = int(data_cell)
+        if value_minute >= 60:
+          extra_hour = value_minute // 60
+          time_hour_minute["value_hour"] += extra_hour
+          time_hour_minute["value_minute"] = value_minute % 60
+          updated_data[time_hour_minute["name_hour"]] = int(time_hour_minute["value_hour"]) #! TODO: Review later why sometimes the parameter isn't saved if that cell is void (null or None)
+        updated_data[time_hour_minute["name_minute"]] = int(time_hour_minute["value_minute"])
+        #! It is assumed that the minute attribute always comes after its respective hour attribute.
+        # if ( time_hour_minute["name_hour"] == "tiempo_de_extricacion_hora"): print(f'{time_hour_minute["name_hour"]} - {time_hour_minute}')
+        time_hour_minute["value_hour"] = 0
+        time_hour_minute["value_minute"] = 0
+        
+      else:
+        updated_data[key_cell] = int(foreign_value)
+    except Exception as e:
+      raise e
