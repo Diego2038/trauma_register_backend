@@ -237,10 +237,11 @@ class UploadView(APIView):
         updated_data[time_hour_minute["name_hour"]] = int(time_hour_minute["value_hour"])
         
       elif key_cell.split("_")[-1] in "minutos":
-        # if ( time_hour_minute["name_hour"] == "tiempo_de_extricacion_hora"): print("AAAAA")
         data_cell: str = data_row[key_cell].strip()
         time_hour_minute["value_minute"] = int(data_cell)
         time_hour_minute["name_minute"] = key_cell
+        time_hour_minute["name_hour"] = "_".join(key_cell.split("_")[:-1]) + "_horas"
+        #! It's necessary to save the hour number again because sometimes the attribute hour could come void, and attribute minute doesn't (and the value hour will save in another attribute hour name)
         value_minute: int = int(data_cell)
         if value_minute >= 60:
           extra_hour = value_minute // 60
