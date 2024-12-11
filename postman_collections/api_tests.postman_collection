@@ -1,0 +1,59 @@
+{
+	"info": {
+		"_postman_id": "2daf44d7-a0e8-4fce-8d54-ddbdfb477a84",
+		"name": "Backend trauma register",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23383116"
+	},
+	"item": [
+		{
+			"name": "Post with .xls",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": []
+						},
+						{
+							"key": "user",
+							"value": "John Doe",
+							"type": "text"
+						},
+						{
+							"key": "update_data",
+							"value": "true",
+							"type": "text"
+						},
+						{
+							"key": "only_update",
+							"value": "false",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://127.0.0.1:8000/upload_manager/upload/",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "8000",
+					"path": [
+						"upload_manager",
+						"upload",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
