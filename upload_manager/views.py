@@ -64,7 +64,7 @@ class UploadView(APIView):
       return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     except ValidationError as ve:
       return Response({
-          "error": "The file has data that already exists in the database, please change the parameter \"allow_update_data\" with true or delete any data related to the patient ID",
+          "error": "The file has data that already exists in the database, please change the parameter \"update_data\" with true or delete any data related to the patient ID",
           "allow_update_data": update_data,
           "only_update": only_update,
           "specific_error": ve,
