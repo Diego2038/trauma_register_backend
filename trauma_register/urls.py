@@ -22,4 +22,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("upload_manager/", include("upload_manager.urls")),
     path("user/", include("custom_user.routers")),
+    path("medical_records/", include("medical_records.routers")),
 ]

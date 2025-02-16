@@ -28,12 +28,6 @@ class PatientData(models.Model):
 
     def __str__(self):
         return f"PatientData {self.trauma_register_record_id}"
-    
-    def save(self, *args, **kwargs):
-        result = PatientData.objects.filter(trauma_register_record_id=self.trauma_register_record_id).exists()
-        if result:
-            raise ValidationError(f"The patient with the ID {self.trauma_register_record_id} already exists!")
-        super().save(*args, **kwargs)
 
 # HealthcareRecord Model
 class HealthcareRecord(models.Model):
