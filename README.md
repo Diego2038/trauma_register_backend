@@ -81,11 +81,12 @@ deactivate
 - Create a new environment or update an existing one with the next necessary variables:
     - **user** 
     - **token**
+    - **trauma_register_record_id**
     - **url** (this variable must be set to the URL where the server is mounted, if you're executing this code in your local host then establish it as ***localhost:8000***)
 - Set the values for these variables according to your local setup.
 
 4. **Establish the request parameters:**
-- Go to "Post with .xls"/body/"form-data".
+- Go to "Post data trauma through an excel file"/body/"form-data".
 - Select an Excel file containing the trauma data you want to process in the ***"file"*** attribute clicking and select the option "New file from local machine".
 - Choose a string value for the ***"user"*** attribute, which will define the user who uploaded the file.
 - Select a boolean value for the ***"update_data"*** attribute. If set to true, updates will be allowed for existing records in the Postgres database. If false, no updates will be made.
@@ -95,3 +96,7 @@ deactivate
 - Select the imported collection **api_tests**.
 - Click on the **Run** button to execute the requests in the collection.
 - You can also run individual requests by selecting them and clicking the **Send** button.
+
+
+### Note:
+If you're in a distro linux and ***psycopg2*** fails, please use ***psycopg2-binary*** instead

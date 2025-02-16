@@ -7,7 +7,333 @@
 	},
 	"item": [
 		{
-			"name": "Post with .xls",
+			"name": "Trauma data",
+			"item": [
+				{
+					"name": "1. Patient Data",
+					"item": [
+						{
+							"name": "get Patients data",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/patient-data/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"patient-data",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Patient data by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/patient-data/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"patient-data",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Patient data by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"direccion_linea_2\": \"Calle almendras\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/patient-data/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"patient-data",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create Patient data",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"trauma_register_record_id\": 777,\r\n    \"direccion_linea_1\": null,\r\n    \"direccion_linea_2\": \"Calle almendras\",\r\n    \"ciudad\": \"Cali\",\r\n    \"canton_municipio\": null,\r\n    \"provincia_estado\": \"VALLE DEL CAUCA\",\r\n    \"codigo_postal\": null,\r\n    \"pais\": \"Colombia\",\r\n    \"edad\": 77,\r\n    \"unidad_de_edad\": \"Años\",\r\n    \"genero\": \"Femenino\",\r\n    \"fecha_de_nacimiento\": \"1973-09-26\",\r\n    \"ocupacion\": \"No especificado\",\r\n    \"estado_civil\": \"Soltero\",\r\n    \"nacionalidad\": \"Colombia\",\r\n    \"grupo_etnico\": null,\r\n    \"otro_grupo_etnico\": null,\r\n    \"num_doc_de_identificacion\": \"124235234777\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/patient-data/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"patient-data",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Patient data by ID Copy",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"direccion_linea_2\": \"Calle almendras\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/patient-data/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"patient-data",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/user/user/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get user by ID",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/user/user/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"user",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin22\",\r\n    \"password\": \"admin22\"\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user/user/0/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"user",
+								"0",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"admin22\",\r\n    \"email\": \"admin22@admin.com\",\r\n    \"password\": \"admin22\"\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/user/user/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"user",
+								"user",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "This folder contains all request to interact with user (except login)"
+		},
+		{
+			"name": "Post data trauma through an excel file",
 			"request": {
 				"auth": {
 					"type": "bearer",
@@ -100,141 +426,6 @@
 					"path": [
 						"user",
 						"login",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get user",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/user/user/",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"user",
-						"user",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get user by ID",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{url}}/user/user/1",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"user",
-						"user",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update user",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"admin22\",\r\n    \"password\": \"admin22\"\r\n    \r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/user/user/0/",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"user",
-						"user",
-						"0",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Create user",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "{{token}}",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"username\": \"admin22\",\r\n    \"email\": \"admin22@admin.com\",\r\n    \"password\": \"admin22\"\r\n    \r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{url}}/user/user/",
-					"host": [
-						"{{url}}"
-					],
-					"path": [
-						"user",
-						"user",
 						""
 					]
 				}
