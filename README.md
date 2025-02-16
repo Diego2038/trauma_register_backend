@@ -74,14 +74,24 @@ deactivate
 - Select the **Upload Files** tab.
 - Click **Choose Files** and navigate to the **postman_collections** directory within the project.
 - Select the file **api_tests.postman_collection.json** and click **Open**.
-3. **Establish the request parameters:**
+
+3. **Configure environment variables:**
+- After importing the collection, check if there are any environment variables required.
+- Go to the **Environments** section in Postman.
+- Create a new environment or update an existing one with the next necessary variables:
+    - **user** 
+    - **token**
+    - **url** (this variable must be set to the URL where the server is mounted, if you're executing this code in your local host then establish it as ***localhost:8000***)
+- Set the values for these variables according to your local setup.
+
+4. **Establish the request parameters:**
 - Go to "Post with .xls"/body/"form-data".
 - Select an Excel file containing the trauma data you want to process in the ***"file"*** attribute clicking and select the option "New file from local machine".
 - Choose a string value for the ***"user"*** attribute, which will define the user who uploaded the file.
 - Select a boolean value for the ***"update_data"*** attribute. If set to true, updates will be allowed for existing records in the Postgres database. If false, no updates will be made.
 - Select a boolean value for the ***"only_update"*** attribute. If set to true, only updates will be allowed (no new records will be created). If false, both updates and new record creation will be allowed.
 
-4. **Run the collection:**
+5. **Run the collection:**
 - Select the imported collection **api_tests**.
 - Click on the **Run** button to execute the requests in the collection.
 - You can also run individual requests by selecting them and clicking the **Send** button.
