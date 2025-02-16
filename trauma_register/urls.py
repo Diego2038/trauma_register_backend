@@ -20,5 +20,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("upload_manager/", include("upload_manager.urls"))
+    path("upload_manager/", include("upload_manager.urls")),
+    path("user/", include("custom_user.routers")),
 ]
