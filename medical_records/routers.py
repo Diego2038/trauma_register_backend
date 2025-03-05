@@ -1,8 +1,30 @@
 from rest_framework.routers import DefaultRouter
-from .views import PatientDataViewsets
-
+from .views import PatientDataViewsets, HealthcareRecordViewsets, InjuryRecordViewsets, CollisionViewsets, DrugAbuseViewsets, VitalSignGcsQualifierViewsets, HospitalizationVariableViewsets, HospitalizationComplicationViewsets, TraumaRegisterIcd10Viewsets, IntensiveCareUnitViewsets, ImagingViewsets, ApparentIntentInjuryViewsets, BurnInjuryViewsets, FirearmInjuryViewsets, PenetratingInjuryViewsets, PoisoningInjuryViewsets, ViolenceInjuryViewsets, DeviceViewsets, LaboratoryViewsets, PhysicalExamBodyPartInjuryViewsets, ProcedureViewsets, PrehospitalProcedureViewsets, TransportationModeViewsets, VitalSignViewsets
 router = DefaultRouter()
 
 router.register(r'patient-data', PatientDataViewsets, basename='patient-data')
+router.register(r'healthcare-record', HealthcareRecordViewsets, basename='healthcare-record')
+router.register('injury-record', InjuryRecordViewsets, basename='injury-record')
+router.register('collision', CollisionViewsets, basename='collision')
+router.register('drug-abuse', DrugAbuseViewsets, basename='drug-abuse')
+router.register('vital-sign-gcs-qualifier', VitalSignGcsQualifierViewsets, basename='vital-sign-gcs-qualifier')
+router.register('hospitalization-variable', HospitalizationVariableViewsets, basename='hospitalization-variable')
+router.register('hospitalization-complication', HospitalizationComplicationViewsets, basename='hospitalization-complication')
+router.register('trauma-register-icd10', TraumaRegisterIcd10Viewsets, basename='trauma-register-icd10')
+router.register('intensive-care-unit', IntensiveCareUnitViewsets, basename='intensive-care-unit')
+router.register('imaging', ImagingViewsets, basename='imaging')
+router.register('apparent-intent-injury', ApparentIntentInjuryViewsets, basename='apparent-intent-injury')
+router.register('burn-injury', BurnInjuryViewsets, basename='burn-injury')
+router.register('firearm-injury', FirearmInjuryViewsets, basename='firearm-injury')
+router.register('penetrating-injury', PenetratingInjuryViewsets, basename='penetrating-injury')
+router.register('poisoning-injury', PoisoningInjuryViewsets, basename='poisoning-injury')
+router.register('violence-injury', ViolenceInjuryViewsets, basename='violence-injury')
+router.register('device', DeviceViewsets, basename='device')
+router.register('laboratory', LaboratoryViewsets, basename='laboratory')
+router.register('physical-exam-body-part-injury', PhysicalExamBodyPartInjuryViewsets, basename='physical-exam-body-part-injury')
+router.register('procedure', ProcedureViewsets, basename='procedure')
+router.register('prehospital-procedure', PrehospitalProcedureViewsets, basename='prehospital-procedure')
+router.register('transportation-mode', TransportationModeViewsets, basename='transportation-mode')
+router.register('vital-sign', VitalSignViewsets, basename='vital-sign')
 
 urlpatterns = router.urls

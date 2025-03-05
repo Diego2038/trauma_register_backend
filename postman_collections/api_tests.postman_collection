@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "d7a3bdb0-9f30-4342-91a3-fc2981d9e6ac",
+		"_postman_id": "36ec4d28-b332-4268-b4ff-c2ee22a236f9",
 		"name": "Backend trauma register",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "23383116"
@@ -88,7 +88,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"direccion_linea_2\": \"Calle almendras\"\r\n}",
+									"raw": "{\r\n    \"direccion_linea_2\": \"Calle salamanca\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -149,7 +149,7 @@
 							"response": []
 						},
 						{
-							"name": "delete Patient data by ID Copy",
+							"name": "delete Patient data by ID",
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -163,15 +163,6 @@
 								},
 								"method": "DELETE",
 								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"direccion_linea_2\": \"Calle almendras\"\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
 								"url": {
 									"raw": "{{url}}/medical_records/patient-data/{{trauma_register_record_id}}/",
 									"host": [
@@ -180,6 +171,3939 @@
 									"path": [
 										"medical_records",
 										"patient-data",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "2. Healthcare record",
+					"item": [
+						{
+							"name": "get Healthcare Record",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/healthcare-record/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"healthcare-record",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Healthcare Record by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/healthcare-record/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"healthcare-record",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Healthcare Record by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"hospital\": \"Hospital EDITADO\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/healthcare-record/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"healthcare-record",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create Healthcare Record",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"numero_de_historia_clinica\": \"7754\",\r\n    \"hospital\": \"Hospital almendras\",\r\n    \"fecha_y_hora_de_llegada_del_paciente\": \"2014-04-09T19:26:00Z\",\r\n    \"referido\": false,\r\n    \"policia_notificada\": false,\r\n    \"fecha_y_hora_de_llegada_del_medico\": \"2014-04-09T19:26:00Z\",\r\n    \"fecha_y_hora_de_notificacion_al_medico\": \"2014-04-09T19:26:00Z\",\r\n    \"alerta_equipo_de_trauma\": true,\r\n    \"nivel_de_alerta\": \"Media/Subcrítica\",\r\n    \"paciente_asegurado\": false,\r\n    \"tipo_de_seguro\": null,\r\n    \"motivo_de_consulta\": \"\\\"DOLOR EN LA PIERNA IZQUIERDA\\\"\",\r\n    \"inmunizacion_contra_el_tetanos\": \"No\",\r\n    \"descripcion_del_examen_fisico\": \"dolor a la palpacion y limitacion en cadera izquierda.\",\r\n    \"mecanismo_primario\": \"Contuso\",\r\n    \"numero_de_lesiones_serias\": \"1 Lesión Seria\",\r\n    \"descripcion_del_diagnostico\": \"fractura de femur.\",\r\n    \"disposicion_o_destino_del_paciente\": \"Internado\",\r\n    \"donacion_de_organos\": \"No\",\r\n    \"autopsia\": \"No\",\r\n    \"muerte_prevenible\": \"No aplica\",\r\n    \"tipo_de_admision\": \"Urgencia\",\r\n    \"fecha_y_hora_de_la_disposicion\": \"2014-04-14T21:56:00Z\",\r\n    \"tiempo_en_sala_de_emergencias_horas\": 122,\r\n    \"tiempo_en_sala_de_emergencias_minutos\": 50,\r\n    \"numero_de_referencia_del_ed\": null,\r\n    \"fecha_de_admision\": \"2014-04-09\",\r\n    \"fecha_y_hora_de_alta\": \"2014-04-14T04:56:00Z\",\r\n    \"dias_de_hospitalizacion\": \"5.00\",\r\n    \"uci_dias\": 0,\r\n    \"detalles_de_hospitalizacion\": \"procedimiento quirurgico: hemiartoplastia de cadera izquierda: 11 abr 2014: procedimiento sin complicaciones.\\nse da salida a paciente con recomendaciones.\",\r\n    \"disposicion_o_destino_del_paciente_del_hospitalizacion\": \"Domicilio\",\r\n    \"donacion_de_organos_del_hospitalizacion\": \"No\",\r\n    \"autopsia_del_hospitalizacion\": \"No\",\r\n    \"muerte_prevenible_del_hospitalizacion\": \"No aplica\",\r\n    \"numero_de_referencia_del_hospitalizacion\": null,\r\n    \"agencia_de_transporte\": \"no especificado\",\r\n    \"origen_del_transporte\": \"no especificado\",\r\n    \"numero_de_registro_del_transporte\": \"ninguno\",\r\n    \"fecha_y_hora_de_notificacion_pre_hospitalaria\": null,\r\n    \"fecha_y_hora_de_llegada_a_la_escena\": null,\r\n    \"fecha_y_hora_de_salida_de_la_escena\": null,\r\n    \"razon_de_la_demora\": null,\r\n    \"reporte_o_formulario_pre_hospitalario_entregado\": null,\r\n    \"ciudad_hospital_mas_cercano_al_sitio_del_incidente\": null,\r\n    \"tiempo_de_extricacion_horas\": 2,\r\n    \"tiempo_de_extricacion_minutos\": 0,\r\n    \"duracion_del_transporte_horas\": null,\r\n    \"duracion_del_transporte_minutos\": null,\r\n    \"procedimiento_realizado\": null,\r\n    \"frecuencia_cardiaca_en_la_escena\": null,\r\n    \"presion_arterial_sistolica_en_la_escena\": null,\r\n    \"presion_arterial_diastolica_en_la_escena\": null,\r\n    \"frecuencia_respiratoria_en_la_escena\": null,\r\n    \"calificador_de_frecuencia_respiratoria_en_la_escena\": null,\r\n    \"temperatura_en_la_escena_celsius\": \"0.00\",\r\n    \"saturacion_de_o2_en_la_escena\": null,\r\n    \"frecuencia_cardiaca_durante_el_transporte\": null,\r\n    \"presion_arterial_sistolica_de_transporte\": null,\r\n    \"presion_diastolica_durante_el_transporte\": null,\r\n    \"frecuencia_respiratoria_durante_el_transporte\": null,\r\n    \"calificador_de_frecuencia_respiratoria_durante_el_transporte\": \"Frecuencia Respiratoria Sin Asistencia\",\r\n    \"temperatura_durante_el_transporte_celsius\": \"0.00\",\r\n    \"saturacion_de_o2_durante_el_transporte\": null,\r\n    \"perdida_de_conciencia\": null,\r\n    \"duracion_de_perdida_de_conciencia\": null,\r\n    \"gcs_ocular\": null,\r\n    \"gcs_verbal\": null,\r\n    \"gcs_motora\": null,\r\n    \"gcs_total\": null,\r\n    \"sangre_l\": \"0.000\",\r\n    \"coloides_l\": \"0.000\",\r\n    \"cristaloides_l\": \"0.000\",\r\n    \"hallazgos_clinicos_texto\": null,\r\n    \"fecha_y_hora_de_envio_de_contra_referencia\": null,\r\n    \"fecha_de_alta_de_contrar_referencia\": null,\r\n    \"hallazgos_clinicos_existencia\": null,\r\n    \"servicio_que_atendio\": null,\r\n    \"paciente_admitido\": null,\r\n    \"hospital_que_recibe\": null,\r\n    \"otro_servicio\": null,\r\n    \"servicio_que_recibe\": null,\r\n    \"recomendaciones\": null,\r\n    \"numero_de_referencia_de_referencias_salientes\": null,\r\n    \"fecha_de_envio_de_referencia\": null,\r\n    \"fecha_de_referencia\": null,\r\n    \"razon_de_la_referencia\": null,\r\n    \"medico_que_refiere\": null,\r\n    \"estado_de_referencia\": null,\r\n    \"fecha_de_aceptacion_de_referencia\": null,\r\n    \"iss\": 9,\r\n    \"kts\": null,\r\n    \"rts\": \"7.8408\",\r\n    \"abdomen\": null,\r\n    \"torax\": null,\r\n    \"externo\": null,\r\n    \"extremidades\": 3,\r\n    \"cara\": null,\r\n    \"cabeza\": null,\r\n    \"triss_contuso\": null,\r\n    \"triss_penetrante\": null,\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/healthcare-record/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"healthcare-record",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Healthcare Record by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/healthcare-record/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"healthcare-record",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "3. Injury record",
+					"item": [
+						{
+							"name": "get Injury record",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/injury-record/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"injury-record",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Injury record by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/injury-record/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"injury-record",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Injury record by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"otra_sustancia_de_abuso\": \"NINGUNA EDITADA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/injury-record/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"injury-record",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create Injury record",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"consumo_de_alcohol\": \"No\",\r\n    \"valor_de_alcoholemia\": null,\r\n    \"unidad_de_alcohol\": \"mg/dl\",\r\n    \"otra_sustancia_de_abuso\": \"NINGUNA\",\r\n    \"direccion_nombre_del_lugar\": null,\r\n    \"ciudad_de_evento_de_la_lesion\": \"CALI\",\r\n    \"condado_de_lesiones\": null,\r\n    \"estado_provincia_de_lesiones\": \"VALLE DEL CAUCA\",\r\n    \"pais_de_lesiones\": \"Colombia\",\r\n    \"codigo_postal_de_lesiones\": null,\r\n    \"fecha_y_hora_del_evento\": \"2014-12-18T04:56:00Z\",\r\n    \"accidente_de_trafico\": false,\r\n    \"tipo_de_vehiculo\": null,\r\n    \"ocupante\": null,\r\n    \"velocidad_de_colision\": null,\r\n    \"scq\": null,\r\n    \"caida\": false,\r\n    \"altura_metros\": null,\r\n    \"tipo_de_superficie\": null,\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/injury-record/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"injury-record",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Injury record by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/injury-record/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"injury-record",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "4. Collision",
+					"item": [
+						{
+							"name": "get Collision",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/collision/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"collision",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Collision by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/collision/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"collision",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Collision by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo_de_colision\": \"Peatón vs. vehículo de dos o tres ruedas EDITADA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/collision/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"collision",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create Collision",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo_de_colision\": \"Peatón vs. vehículo de dos o tres ruedas\",\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/collision/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"collision",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Collision by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/collision/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"collision",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "5. Drug abuse",
+					"item": [
+						{
+							"name": "get Drug abuse",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/drug-abuse/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"drug-abuse",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Drug abuse by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/drug-abuse/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"drug-abuse",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Drug abuse by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo_de_droga\": \"J. No especificado EDITADA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/drug-abuse/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"drug-abuse",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create Drug abuse",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo_de_droga\": \"J. No especificado\",\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/drug-abuse/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"drug-abuse",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Drug abuse by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/drug-abuse/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"drug-abuse",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "6. Vital sign Gcs qualifier",
+					"item": [
+						{
+							"name": "get Vital sign Gcs qualifier",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/vital-sign-gcs-qualifier/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"vital-sign-gcs-qualifier",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Vital sign Gcs qualifier by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/vital-sign-gcs-qualifier/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"vital-sign-gcs-qualifier",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Vital sign Gcs qualifier by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"calificador_gcs\": \"Paciente Sedado EDITADA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/vital-sign-gcs-qualifier/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"vital-sign-gcs-qualifier",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create Vital sign Gcs qualifier",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"calificador_gcs\": \"Paciente Sedado Químicamente O Paralizado\",\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/vital-sign-gcs-qualifier/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"vital-sign-gcs-qualifier",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Vital sign Gcs qualifier by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/vital-sign-gcs-qualifier/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"vital-sign-gcs-qualifier",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "7. Hospitalization variable",
+					"item": [
+						{
+							"name": "get Hospitalization variable",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/hospitalization-variable/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"hospitalization-variable",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Hospitalization variable by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/hospitalization-variable/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"hospitalization-variable",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Hospitalization variable by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo_de_variable\": \"FR.-Frecuencia Respiratoria EDITADA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/hospitalization-variable/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"hospitalization-variable",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create Hospitalization variable",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo_de_variable\": \"FR.-Frecuencia Respiratoria\",\r\n    \"valor_de_la_variable\": \"28\",\r\n    \"fecha_y_hora_de_la_variable\": \"2012-01-06T08:29:00Z\",\r\n    \"localizacion_de_variable\": \"Hospitalizacion-Piso\",\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/hospitalization-variable/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"hospitalization-variable",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Hospitalization variable by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/hospitalization-variable/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"hospitalization-variable",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "8. Hospitalization complication",
+					"item": [
+						{
+							"name": "get Hospitalization complication",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/hospitalization-complication/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"hospitalization-complication",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Hospitalization complication by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/hospitalization-complication/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"hospitalization-complication",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Hospitalization complication by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo_de_complicacion\": \"Neumonía bacteriana EDITADA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/hospitalization-complication/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"hospitalization-complication",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create Hospitalization complication",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo_de_complicacion\": \"Neumonía bacteriana, no clasificada en otra parte\",\r\n    \"fecha_y_hora_de_complicacion\": \"2012-02-07T04:56:00Z\",\r\n    \"lugar_de_complicacion\": \"Hospitalizacion-Piso\",\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/hospitalization-complication/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"hospitalization-complication",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Hospitalization complication by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/hospitalization-complication/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"hospitalization-complication",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "9. Trauma register Icd10",
+					"item": [
+						{
+							"name": "get Trauma register Icd10",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/trauma-register-icd10/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"trauma-register-icd10",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Trauma register Icd10 by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/trauma-register-icd10/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"trauma-register-icd10",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Trauma register Icd10 by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"descripcion\": \"Otras convulsiones EDITADA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/trauma-register-icd10/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"trauma-register-icd10",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create Trauma register Icd10",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"descripcion\": \"Otras convulsiones y las no especificadas\",\r\n    \"mecanismo_icd\": \"Co-morbidities\",\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/trauma-register-icd10/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"trauma-register-icd10",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Trauma register Icd10 by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/trauma-register-icd10/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"trauma-register-icd10",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "10. Intensive care unit",
+					"item": [
+						{
+							"name": "get Intensive care unit",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/intensive-care-unit/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"intensive-care-unit",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Intensive care unit by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/intensive-care-unit/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"intensive-care-unit",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Intensive care unit by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo\": \"Unidad de cuidados EDITADA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/intensive-care-unit/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"intensive-care-unit",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create Intensive care unit",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo\": \"Unidad de cuidados intensivos (UCI)\",\r\n    \"fecha_y_hora_de_inicio\": \"2012-01-21T04:56:00Z\",\r\n    \"fecha_y_hora_de_termino\": \"2012-01-27T04:56:00Z\",\r\n    \"lugar\": \"UCI Neuroquirúrgica\",\r\n    \"icu_days\": \"6.00\",\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/intensive-care-unit/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"intensive-care-unit",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Intensive care unit by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/intensive-care-unit/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"intensive-care-unit",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "11. Imaging",
+					"item": [
+						{
+							"name": "get Imaging",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/imaging/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"imaging",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Imaging by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/imaging/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"imaging",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Imaging by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo_de_imagen\": \"Otro EDITADA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/imaging/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"imaging",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create Imaging",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo_de_imagen\": \"Otro\",\r\n    \"parte_del_cuerpo\": \"Pélvico\",\r\n    \"opcion\": true,\r\n    \"descripcion\": \"ANGIOTAC: NO SE OBSERVA  LIQUIDO  NI AIRE  EN PERITONEO  SE OBSERVAN CONTINUIDAD  DE  VASOS  Y GRAN FRACTURA  DEL ACETABULO  CUELLO  FÉMUR  Y DIAFISIS  FEMORAL.\",\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/imaging/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"imaging",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Imaging by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/imaging/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"imaging",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "12. Apparent intent injury",
+					"item": [
+						{
+							"name": "get Apparent intent injury",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/apparent-intent-injury/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"apparent-intent-injury",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Apparent intent injury by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/apparent-intent-injury/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"apparent-intent-injury",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Apparent intent injury by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"intencion_aparente\": \"No especificado EDITADA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/apparent-intent-injury/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"apparent-intent-injury",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create Apparent intent injury",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"intencion_aparente\": \"No especificado\",\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/apparent-intent-injury/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"apparent-intent-injury",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Apparent intent injury by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/apparent-intent-injury/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"apparent-intent-injury",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "13. Burn injury",
+					"item": [
+						{
+							"name": "get Burn injury",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/burn-injury/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"burn-injury",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Burn injury by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/burn-injury/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"burn-injury",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Burn injury by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo_de_quemadura\": \"Líquidos calientes EDITADA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/burn-injury/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"burn-injury",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create Burn injury",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo_de_quemadura\": \"Líquidos calientes\",\r\n    \"grado_de_quemadura\": \"Segundo grado\",\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/burn-injury/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"burn-injury",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Burn injury by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/burn-injury/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"burn-injury",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "14. Firearm injury",
+					"item": [
+						{
+							"name": "get Firearm injury",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/firearm-injury/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"firearm-injury",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Firearm injury by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/firearm-injury/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"firearm-injury",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Firearm injury by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo_de_arma_de_fuego\": \"Arma de fuego EDITADA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/firearm-injury/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"firearm-injury",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create Firearm injury",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo_de_arma_de_fuego\": \"Arma de fuego no especificada\",\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/firearm-injury/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"firearm-injury",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Firearm injury by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/firearm-injury/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"firearm-injury",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "15. Penetrating injury",
+					"item": [
+						{
+							"name": "get Penetrating injury",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/penetrating-injury/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"penetrating-injury",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Penetrating injury by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/penetrating-injury/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"penetrating-injury",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Penetrating injury by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo_de_lesion_penetrante\": \"Apuñalado EDITADA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/penetrating-injury/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"penetrating-injury",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create Penetrating injury",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo_de_lesion_penetrante\": \"Apuñalado\",\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/penetrating-injury/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"penetrating-injury",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Penetrating injury by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/penetrating-injury/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"penetrating-injury",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "16. Poisoning injury",
+					"item": [
+						{
+							"name": "get Poisoning injury",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/poisoning-injury/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"poisoning-injury",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Poisoning injury by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/poisoning-injury/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"poisoning-injury",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Poisoning injury by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo_de_envenenamiento\": \"Pesticidas EDITADA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/poisoning-injury/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"poisoning-injury",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create Poisoning injury",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo_de_envenenamiento\": \"Pesticidas\",\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/poisoning-injury/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"poisoning-injury",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Poisoning injury by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/poisoning-injury/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"poisoning-injury",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "17. Violence injury",
+					"item": [
+						{
+							"name": "get Violence injury",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/violence-injury/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"violence-injury",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Violence injury by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/violence-injury/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"violence-injury",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Violence injury by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo_de_violencia\": \"Sospecha de violencia EDITADA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/violence-injury/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"violence-injury",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create Violence injury",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo_de_violencia\": \"Sospecha de violencia\",\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/violence-injury/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"violence-injury",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Violence injury by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/violence-injury/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"violence-injury",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "18. Device",
+					"item": [
+						{
+							"name": "get Device",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/device/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"device",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Device by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/device/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"device",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Device by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo_de_dispositivo\": \"Cinturón EDITADA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/device/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"device",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create Device",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"tipo_de_dispositivo\": \"Cinturón\",\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/device/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"device",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Device by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/device/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"device",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "19. Laboratory",
+					"item": [
+						{
+							"name": "get Laboratory",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/laboratory/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"laboratory",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Laboratory by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/laboratory/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"laboratory",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Laboratory by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nombre_del_laboratorio\": \"Hct- Hematocrito EDITADA (%)\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/laboratory/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"laboratory",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create Laboratory",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"resultado_de_laboratorio\": \"29.6\",\r\n    \"fecha_y_hora_de_laboratorio\": \"2012-01-27T04:56:00Z\",\r\n    \"nombre_del_laboratorio\": \"Hct- Hematocrito (%)\",\r\n    \"nombre_de_la_unidad_de_laboratorio\": \"%\",\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/laboratory/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"laboratory",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Laboratory by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/laboratory/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"laboratory",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "20. Physical exam body part injury",
+					"item": [
+						{
+							"name": "get Physical exam body part injury",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/physical-exam-body-part-injury/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"physical-exam-body-part-injury",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Physical exam body part injury by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/physical-exam-body-part-injury/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"physical-exam-body-part-injury",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Physical exam body part injury by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"parte_del_cuerpo\": \"Antebrazo Y Codo Izquierdo EDITADA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/physical-exam-body-part-injury/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"physical-exam-body-part-injury",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create Physical exam body part injury",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"parte_del_cuerpo\": \"Antebrazo Y Codo Izquierdo\",\r\n    \"tipo_de_lesion\": \"Deformidad\",\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/physical-exam-body-part-injury/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"physical-exam-body-part-injury",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Physical exam body part injury by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/physical-exam-body-part-injury/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"physical-exam-body-part-injury",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "21. Procedure",
+					"item": [
+						{
+							"name": "get Procedure",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/procedure/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"procedure",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Procedure by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/procedure/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"procedure",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Procedure by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"procedimiento_realizado\": \"Administración de medicación EDITADA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/procedure/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"procedure",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create Procedure",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"procedimiento_realizado\": \"Administración de medicación\",\r\n    \"fecha_y_hora_de_inicio\": \"2015-01-05T04:56:00Z\",\r\n    \"fecha_y_hora_de_termino\": \"2015-01-05T04:56:00Z\",\r\n    \"lugar\": \"Hospitalizacion-Piso\",\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/procedure/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"procedure",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Procedure by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/procedure/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"procedure",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "22. Prehospital procedure",
+					"item": [
+						{
+							"name": "get Prehospital procedure",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/prehospital-procedure/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"prehospital-procedure",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Prehospital procedure by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/prehospital-procedure/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"prehospital-procedure",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Prehospital procedure by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"procedimiento_realizado\": \"Mascara facial simple EDITADA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/prehospital-procedure/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"prehospital-procedure",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create Prehospital procedure",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"procedimiento_realizado\": \"Mascara facial simple\",\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/prehospital-procedure/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"prehospital-procedure",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Prehospital procedure by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/prehospital-procedure/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"prehospital-procedure",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "23. Transportation mode",
+					"item": [
+						{
+							"name": "get Transportation mode",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/transportation-mode/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"transportation-mode",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Transportation mode by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/transportation-mode/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"transportation-mode",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Transportation mode by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"modo_de_transporte\": \"Ambulancia terrestre EDITADA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/transportation-mode/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"transportation-mode",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create Transportation mode",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"modo_de_transporte\": \"Ambulancia terrestre\",\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/transportation-mode/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"transportation-mode",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Transportation mode by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/transportation-mode/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"transportation-mode",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "24. Vital sign",
+					"item": [
+						{
+							"name": "get Vital sign",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/vital-sign/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"vital-sign",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get Vital sign by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/vital-sign/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"vital-sign",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "update Vital sign by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"calificador_de_frecuencia_respiratoria\": \"Frecuencia Respiratoria EDITADA\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/vital-sign/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"vital-sign",
+										"{{trauma_register_record_id}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create Vital sign",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"record_id\": 40941,\r\n    \"fecha_y_hora_de_signos_vitales\": \"2012-01-04T19:01:00Z\",\r\n    \"signos_de_vida\": true,\r\n    \"frecuencia_cardiaca\": 88,\r\n    \"presion_arterial_sistolica\": 90,\r\n    \"presion_arterial_diastolica\": 60,\r\n    \"frecuencia_respiratoria\": 16,\r\n    \"calificador_de_frecuencia_respiratoria\": \"Frecuencia Respiratoria Sin Asistencia\",\r\n    \"temperatura_celsius\": \"36.00\",\r\n    \"peso_kg\": \"68.00\",\r\n    \"altura_metros\": \"1.60\",\r\n    \"saturacion_de_oxigeno\": \"98.00\",\r\n    \"perdida_de_conciencia\": \"No\",\r\n    \"duracion_de_perdida_de_conciencia\": \"00:02:00\",\r\n    \"gcs_motora\": 6,\r\n    \"gcs_ocular\": 5,\r\n    \"gcs_verbal\": 4,\r\n    \"gcs_total\": 15,\r\n    \"avup\": \"Alerta\",\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/medical_records/vital-sign/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"vital-sign",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "delete Vital sign by ID",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/medical_records/vital-sign/{{trauma_register_record_id}}/",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"medical_records",
+										"vital-sign",
 										"{{trauma_register_record_id}}",
 										""
 									]
@@ -239,14 +4163,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/user/user/1",
+							"raw": "{{url}}/user/user/0/",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"user",
 								"user",
-								"1"
+								"0",
+								""
 							]
 						}
 					},
