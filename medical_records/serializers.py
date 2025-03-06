@@ -1,11 +1,6 @@
 from rest_framework import serializers
 from .models import *
 
-class PatientDataSerializer(serializers.ModelSerializer):
-  class Meta:
-    model = PatientData
-    fields = '__all__'
-
 class HealthcareRecordSerializer(serializers.ModelSerializer):
   class Meta:
     model = HealthcareRecord
@@ -119,4 +114,33 @@ class TransportationModeSerializer(serializers.ModelSerializer):
 class VitalSignSerializer(serializers.ModelSerializer):
   class Meta:
     model = VitalSign
+    fields = '__all__'
+
+class PatientDataSerializer(serializers.ModelSerializer):
+  healthcare_record = HealthcareRecordSerializer(required=False)
+  injury_record = InjuryRecordSerializer(required=False)
+  collision = CollisionSerializer(many=True, required=False)
+  drug_abuse = DrugAbuseSerializer(required=False, many=True)
+  vital_sign_gcs_qualifier = VitalSignGcsQualifierSerializer(required=False, many=True)
+  hospitalization_variable = HospitalizationVariableSerializer(required=False, many=True)
+  hospitalization_complication = HospitalizationComplicationSerializer(required=False, many=True)
+  trauma_register_icd10 = TraumaRegisterIcd10Serializer(required=False, many=True)
+  intensive_care_unit = IntensiveCareUnitSerializer(required=False, many=True)
+  imaging = ImagingSerializer(required=False, many=True)
+  apparent_intent_injury = ApparentIntentInjurySerializer(required=False, many=True)
+  burn_injury = BurnInjurySerializer(required=False, many=True)
+  firearm_injury = FirearmInjurySerializer(required=False, many=True)
+  penetrating_injury = PenetratingInjurySerializer(required=False, many=True)
+  poisoning_injury = PoisoningInjurySerializer(required=False, many=True)
+  violence_injury = ViolenceInjurySerializer(required=False, many=True)
+  device = DeviceSerializer(required=False, many=True)
+  laboratory = LaboratorySerializer(required=False, many=True)
+  physical_exam_body_part_injury = PhysicalExamBodyPartInjurySerializer(required=False, many=True)
+  procedure = ProcedureSerializer(required=False, many=True)
+  prehospital_procedure = PrehospitalProcedureSerializer(required=False, many=True)
+  transportation_mode = TransportationModeSerializer(required=False, many=True)
+  vital_sign = VitalSignSerializer(required=False, many=True)
+  
+  class Meta:
+    model = PatientData
     fields = '__all__'
