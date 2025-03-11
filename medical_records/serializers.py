@@ -119,7 +119,7 @@ class VitalSignSerializer(serializers.ModelSerializer):
 class PatientDataSerializer(serializers.ModelSerializer):
   healthcare_record = HealthcareRecordSerializer(required=False)
   injury_record = InjuryRecordSerializer(required=False)
-  collision = CollisionSerializer(many=True, required=False)
+  collision = CollisionSerializer(required=False, many=True)
   drug_abuse = DrugAbuseSerializer(required=False, many=True)
   vital_sign_gcs_qualifier = VitalSignGcsQualifierSerializer(required=False, many=True)
   hospitalization_variable = HospitalizationVariableSerializer(required=False, many=True)
@@ -144,3 +144,101 @@ class PatientDataSerializer(serializers.ModelSerializer):
   class Meta:
     model = PatientData
     fields = '__all__'
+
+  def create(self, validated_data):
+    healthcare_record_data = validated_data.pop("healthcare_record", None)
+    injury_record_data = validated_data.pop("injury_record", None)
+    collision_data = validated_data.pop("collision", [])
+    drug_abuse_data = validated_data.pop("drug_abuse", [])
+    vital_sign_gcs_qualifier_data = validated_data.pop("vital_sign_gcs_qualifier", [])
+    hospitalization_variable_data = validated_data.pop("hospitalization_variable", [])
+    hospitalization_complication_data = validated_data.pop("hospitalization_complication", [])
+    trauma_register_icd10_data = validated_data.pop("trauma_register_icd10", [])
+    intensive_care_unit_data = validated_data.pop("intensive_care_unit", [])
+    imaging_data = validated_data.pop("imaging", [])
+    apparent_intent_injury_data = validated_data.pop("apparent_intent_injury", [])
+    burn_injury_data = validated_data.pop("burn_injury", [])
+    firearm_injury_data = validated_data.pop("firearm_injury", [])
+    penetrating_injury_data = validated_data.pop("penetrating_injury", [])
+    poisoning_injury_data = validated_data.pop("poisoning_injury", [])
+    violence_injury_data = validated_data.pop("violence_injury", [])
+    device_data = validated_data.pop("device", [])
+    laboratory_data = validated_data.pop("laboratory", [])
+    physical_exam_body_part_injury_data = validated_data.pop("physical_exam_body_part_injury", [])
+    procedure_data = validated_data.pop("procedure", [])
+    prehospital_procedure_data = validated_data.pop("prehospital_procedure", [])
+    transportation_mode_data = validated_data.pop("transportation_mode", [])
+    vital_sign_data = validated_data.pop("vital_sign", [])
+    
+    patient = PatientData.objects.create(**validated_data)
+    
+    if (healthcare_record_data):
+      HealthcareRecord.objects.create(trauma_register_record_id=patient, **healthcare_record_data)
+    
+    if (injury_record_data):
+      InjuryRecord.objects.create(trauma_register_record_id=patient, **injury_record_data)
+
+    for collision in collision_data:
+      Collision.objects.create(trauma_register_record_id=patient, **collision)
+    
+    for drug_abuse in drug_abuse_data: 
+      DrugAbuse.objects.create(trauma_register_record_id=patient, **drug_abuse)
+
+    for vital_sign_gcs_qualifier in vital_sign_gcs_qualifier_data: 
+      VitalSignGcsQualifier.objects.create(trauma_register_record_id=patient, **vital_sign_gcs_qualifier)
+
+    for hospitalization_variable in hospitalization_variable_data: 
+      HospitalizationVariable.objects.create(trauma_register_record_id=patient, **hospitalization_variable)
+
+    for hospitalization_complication in hospitalization_complication_data: 
+      HospitalizationComplication.objects.create(trauma_register_record_id=patient, **hospitalization_complication)
+
+    for trauma_register_icd10 in trauma_register_icd10_data: 
+      TraumaRegisterIcd10.objects.create(trauma_register_record_id=patient, **trauma_register_icd10)
+
+    for intensive_care_unit in intensive_care_unit_data: 
+      IntensiveCareUnit.objects.create(trauma_register_record_id=patient, **intensive_care_unit)
+
+    for imaging in imaging_data: 
+      Imaging.objects.create(trauma_register_record_id=patient, **imaging)
+
+    for apparent_intent_injury in apparent_intent_injury_data: 
+      ApparentIntentInjury.objects.create(trauma_register_record_id=patient, **apparent_intent_injury)
+
+    for burn_injury in burn_injury_data: 
+      BurnInjury.objects.create(trauma_register_record_id=patient, **burn_injury)
+
+    for firearm_injury in firearm_injury_data: 
+      FirearmInjury.objects.create(trauma_register_record_id=patient, **firearm_injury)
+
+    for penetrating_injury in penetrating_injury_data: 
+      PenetratingInjury.objects.create(trauma_register_record_id=patient, **penetrating_injury)
+
+    for poisoning_injury in poisoning_injury_data: 
+      PoisoningInjury.objects.create(trauma_register_record_id=patient, **poisoning_injury)
+
+    for violence_injury in violence_injury_data: 
+      ViolenceInjury.objects.create(trauma_register_record_id=patient, **violence_injury)
+
+    for device in device_data: 
+      Device.objects.create(trauma_register_record_id=patient, **device)
+
+    for laboratory in laboratory_data: 
+      Laboratory.objects.create(trauma_register_record_id=patient, **laboratory)
+
+    for physical_exam_body_part_injury in physical_exam_body_part_injury_data: 
+      PhysicalExamBodyPartInjury.objects.create(trauma_register_record_id=patient, **physical_exam_body_part_injury)
+
+    for procedure in procedure_data: 
+      Procedure.objects.create(trauma_register_record_id=patient, **procedure)
+
+    for prehospital_procedure in prehospital_procedure_data: 
+      PrehospitalProcedure.objects.create(trauma_register_record_id=patient, **prehospital_procedure)
+
+    for transportation_mode in transportation_mode_data: 
+      TransportationMode.objects.create(trauma_register_record_id=patient, **transportation_mode)
+
+    for vital_sign in vital_sign_data: 
+      VitalSign.objects.create(trauma_register_record_id=patient, **vital_sign)
+    
+    return patient 

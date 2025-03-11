@@ -4,7 +4,7 @@ from django.db import models
 
 # HealthcareRecord Model
 class HealthcareRecord(models.Model):
-    trauma_register_record_id = models.OneToOneField("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", null=False, blank=False, related_name="healthcare_record")
+    trauma_register_record_id = models.OneToOneField("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", null=False, blank=True, related_name="healthcare_record")
     numero_de_historia_clinica = models.CharField(max_length=30, null=True, blank=True, default=None)
     hospital = models.CharField(max_length=300, null=True, blank=True, default=None)
     fecha_y_hora_de_llegada_del_paciente = models.DateTimeField(null=True, blank=True, default=None)
@@ -115,7 +115,7 @@ class HealthcareRecord(models.Model):
 
 # InjuryRecord Model
 class InjuryRecord(models.Model):
-    trauma_register_record_id = models.OneToOneField("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", null=False, blank=False, related_name="injury_record")
+    trauma_register_record_id = models.OneToOneField("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", null=False, blank=True, related_name="injury_record")
     consumo_de_alcohol = models.CharField(max_length=30, null=True, blank=True, default=None)
     valor_de_alcoholemia = models.DecimalField(max_digits=6, decimal_places=2, null=True, blank=True, default=None)
     unidad_de_alcohol = models.CharField(max_length=60, null=True, blank=True, default=None)
@@ -144,7 +144,7 @@ class InjuryRecord(models.Model):
 
 # Collision Model
 class Collision(models.Model):
-    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="collision")
+    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="collision", blank=True, null=False)
     tipo_de_colision = models.CharField(max_length=300, null=True, blank=True, default=None)
 
     class Meta:
@@ -155,7 +155,7 @@ class Collision(models.Model):
 
 # DrugAbuse Model
 class DrugAbuse(models.Model):
-    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="drug_abuse")
+    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="drug_abuse", blank=True, null=False)
     tipo_de_droga = models.CharField(max_length=90, null=True, blank=True, default=None)
 
     class Meta:
@@ -166,7 +166,7 @@ class DrugAbuse(models.Model):
 
 # VitalSignGcsQualifier Model
 class VitalSignGcsQualifier(models.Model):
-    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="vital_sign_gcs_qualifier")
+    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="vital_sign_gcs_qualifier", blank=True, null=False)
     calificador_gcs = models.CharField(max_length=300, null=True, blank=True, default=None)
 
     class Meta:
@@ -177,7 +177,7 @@ class VitalSignGcsQualifier(models.Model):
 
 # HospitalizationVariable Model
 class HospitalizationVariable(models.Model):
-    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="hospitalization_variable")
+    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="hospitalization_variable", blank=True, null=False)
     tipo_de_variable = models.CharField(max_length=90, null=True, blank=True, default=None)
     valor_de_la_variable = models.CharField(max_length=30, null=True, blank=True, default=None)
     fecha_y_hora_de_la_variable = models.DateTimeField(null=True, blank=True, default=None)
@@ -191,7 +191,7 @@ class HospitalizationVariable(models.Model):
 
 # HospitalizationComplication Model
 class HospitalizationComplication(models.Model):
-    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="hospitalization_complication")
+    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="hospitalization_complication", blank=True, null=False)
     tipo_de_complicacion = models.CharField(max_length=300, null=True, blank=True, default=None)
     fecha_y_hora_de_complicacion = models.DateTimeField(null=True, blank=True, default=None)
     lugar_de_complicacion = models.CharField(max_length=90, null=True, blank=True, default=None)
@@ -204,7 +204,7 @@ class HospitalizationComplication(models.Model):
 
 # TraumaRegisterIcd10 Model
 class TraumaRegisterIcd10(models.Model):
-    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="trauma_register_icd10")
+    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="trauma_register_icd10", blank=True, null=False)
     descripcion = models.TextField(null=True, blank=True, default=None)
     mecanismo_icd = models.CharField(max_length=90, null=True, blank=True, default=None)
 
@@ -216,7 +216,7 @@ class TraumaRegisterIcd10(models.Model):
 
 # IntensiveCareUnit Model
 class IntensiveCareUnit(models.Model):
-    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="intensive_care_unit")
+    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="intensive_care_unit", blank=True, null=False)
     tipo = models.CharField(max_length=90, null=True, blank=True, default=None)
     fecha_y_hora_de_inicio = models.DateTimeField(null=True, blank=True, default=None)
     fecha_y_hora_de_termino = models.DateTimeField(null=True, blank=True, default=None)
@@ -231,7 +231,7 @@ class IntensiveCareUnit(models.Model):
 
 # Imaging Model
 class Imaging(models.Model):
-    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="imaging")
+    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="imaging", blank=True, null=False)
     tipo_de_imagen = models.CharField(max_length=90, null=True, blank=True, default=None)
     parte_del_cuerpo = models.CharField(max_length=90, null=True, blank=True, default=None)
     opcion = models.BooleanField(null=True, blank=True, default=None)
@@ -245,7 +245,7 @@ class Imaging(models.Model):
 
 # ApparentIntentInjury Model
 class ApparentIntentInjury(models.Model):
-    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="apparent_intent_injury")
+    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="apparent_intent_injury", blank=True, null=False)
     intencion_aparente = models.CharField(max_length=90, null=True, blank=True, default=None)
 
     class Meta:
@@ -256,7 +256,7 @@ class ApparentIntentInjury(models.Model):
 
 # BurnInjury Model
 class BurnInjury(models.Model):
-    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="burn_injury")
+    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="burn_injury", blank=True, null=False)
     tipo_de_quemadura = models.CharField(max_length=90, null=True, blank=True, default=None)
     grado_de_quemadura = models.CharField(max_length=30, null=True, blank=True, default=None)
 
@@ -268,7 +268,7 @@ class BurnInjury(models.Model):
 
 # FirearmInjury Model
 class FirearmInjury(models.Model):
-    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="firearm_injury")
+    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="firearm_injury", blank=True, null=False)
     tipo_de_arma_de_fuego = models.CharField(max_length=60, null=True, blank=True, default=None)
 
     class Meta:
@@ -279,7 +279,7 @@ class FirearmInjury(models.Model):
 
 # PenetratingInjury Model
 class PenetratingInjury(models.Model):
-    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="penetrating_injury")
+    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="penetrating_injury", blank=True, null=False)
     tipo_de_lesion_penetrante = models.CharField(max_length=90, null=True, blank=True, default=None)
 
     class Meta:
@@ -290,7 +290,7 @@ class PenetratingInjury(models.Model):
 
 # PoisoningInjury Model
 class PoisoningInjury(models.Model):
-    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="poisoning_injury")
+    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="poisoning_injury", blank=True, null=False)
     tipo_de_envenenamiento = models.CharField(max_length=90, null=True, blank=True, default=None)
 
     class Meta:
@@ -301,7 +301,7 @@ class PoisoningInjury(models.Model):
 
 # ViolenceInjury Model
 class ViolenceInjury(models.Model):
-    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="violence_injury")
+    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="violence_injury", blank=True, null=False)
     tipo_de_violencia = models.CharField(max_length=90, null=True, blank=True, default=None)
 
     class Meta:
@@ -312,7 +312,7 @@ class ViolenceInjury(models.Model):
 
 # Device Model
 class Device(models.Model):
-    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="device")
+    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="device", blank=True, null=False)
     tipo_de_dispositivo = models.CharField(max_length=90, null=True, blank=True, default=None)
 
     class Meta:
@@ -323,7 +323,7 @@ class Device(models.Model):
 
 # Laboratory Model
 class Laboratory(models.Model):
-    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="laboratory")
+    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="laboratory", blank=True, null=False)
     resultado_de_laboratorio = models.CharField(max_length=90, null=True, blank=True, default=None)
     fecha_y_hora_de_laboratorio = models.DateTimeField(null=True, blank=True, default=None)
     nombre_del_laboratorio = models.CharField(max_length=90, null=True, blank=True, default=None)
@@ -337,7 +337,7 @@ class Laboratory(models.Model):
 
 # PhysicalExamBodyPartInjury Model
 class PhysicalExamBodyPartInjury(models.Model):
-    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="physical_exam_body_part_injury")
+    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="physical_exam_body_part_injury", blank=True, null=False)
     parte_del_cuerpo = models.CharField(max_length=90, null=True, blank=True, default=None)
     tipo_de_lesion = models.CharField(max_length=90, null=True, blank=True, default=None)
 
@@ -346,7 +346,7 @@ class PhysicalExamBodyPartInjury(models.Model):
 
 # Procedure Model
 class Procedure(models.Model):
-    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="procedure")
+    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="procedure", blank=True, null=False)
     procedimiento_realizado = models.CharField(max_length=90, null=True, blank=True, default=None)
     fecha_y_hora_de_inicio = models.DateTimeField(null=True, blank=True, default=None)
     fecha_y_hora_de_termino = models.DateTimeField(null=True, blank=True, default=None)
@@ -360,7 +360,7 @@ class Procedure(models.Model):
 
 # PrehospitalProcedure Model
 class PrehospitalProcedure(models.Model):
-    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="prehospital_procedure")
+    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="prehospital_procedure", blank=True, null=False)
     procedimiento_realizado = models.CharField(max_length=300, null=True, blank=True, default=None)
 
     class Meta:
@@ -371,7 +371,7 @@ class PrehospitalProcedure(models.Model):
 
 # TransportationMode Model
 class TransportationMode(models.Model):
-    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="transportation_mode")
+    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="transportation_mode", blank=True, null=False)
     modo_de_transporte = models.CharField(max_length=90, null=True, blank=True, default=None)
 
     class Meta:
@@ -383,7 +383,7 @@ class TransportationMode(models.Model):
 # VitalSign Model
 class VitalSign(models.Model):
     record_id = models.BigIntegerField(primary_key=True)
-    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="vital_sign")
+    trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="vital_sign", blank=True, null=False)
     fecha_y_hora_de_signos_vitales = models.DateTimeField(null=True, blank=True, default=None)
     signos_de_vida = models.BooleanField(null=True, blank=True, default=None)
     frecuencia_cardiaca = models.SmallIntegerField(null=True, blank=True, default=None)
