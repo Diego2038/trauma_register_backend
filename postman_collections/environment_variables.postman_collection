@@ -1,0 +1,39 @@
+{
+	"id": "d18ddd6a-15e8-422f-8db9-bea1570ea70c",
+	"name": "Trauma app",
+	"values": [
+		{
+			"key": "token",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "user",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "url",
+			"value": "http://localhost:8000",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "trauma_register_record_id",
+			"value": "40940",
+			"type": "default",
+			"enabled": true
+		},
+		{
+			"key": "id_temporal",
+			"value": "",
+			"type": "default",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2025-03-12T02:51:23.168Z",
+	"_postman_exported_using": "Postman/11.36.1"
+}

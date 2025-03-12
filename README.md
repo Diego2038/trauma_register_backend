@@ -75,15 +75,12 @@ deactivate
 - Click **Choose Files** and navigate to the **postman_collections** directory within the project.
 - Select the file **api_tests.postman_collection.json** and click **Open**.
 
-3. **Configure environment variables:**
-- After importing the collection, check if there are any environment variables required.
-- Go to the **Environments** section in Postman.
-- Create a new environment or update an existing one with the next necessary variables:
-    - **user** 
-    - **token**
-    - **trauma_register_record_id**
-    - **url** (this variable must be set to the URL where the server is mounted, if you're executing this code in your local host then establish it as ***localhost:8000***)
-- Set the values for these variables according to your local setup.
+3. **Import the environment variables:**
+- Click on the Environment icon ubicated in the upper left.
+- Click on the **Import** button located in the upper left corner.
+- Select the **Upload Files** tab.
+- Click **Choose Files** and navigate to the **postman_collections** directory within the project.
+- Select the file **environment_variables.postman_collection.json** and click **Open**.
 
 4. **Establish the request parameters:**
 - Go to "Post data trauma through an excel file"/body/"form-data".

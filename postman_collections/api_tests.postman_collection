@@ -608,14 +608,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/collision/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/collision/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"collision",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -647,14 +647,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/medical_records/collision/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/collision/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"collision",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -715,14 +715,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/collision/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/collision/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"collision",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -779,14 +779,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/drug-abuse/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/drug-abuse/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"drug-abuse",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -818,14 +818,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/medical_records/drug-abuse/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/drug-abuse/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"drug-abuse",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -886,14 +886,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/drug-abuse/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/drug-abuse/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"drug-abuse",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -950,14 +950,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/vital-sign-gcs-qualifier/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/vital-sign-gcs-qualifier/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"vital-sign-gcs-qualifier",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -989,14 +989,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/medical_records/vital-sign-gcs-qualifier/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/vital-sign-gcs-qualifier/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"vital-sign-gcs-qualifier",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -1057,14 +1057,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/vital-sign-gcs-qualifier/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/vital-sign-gcs-qualifier/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"vital-sign-gcs-qualifier",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -1121,14 +1121,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/hospitalization-variable/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/hospitalization-variable/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"hospitalization-variable",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -1160,14 +1160,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/medical_records/hospitalization-variable/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/hospitalization-variable/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"hospitalization-variable",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -1228,14 +1228,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/hospitalization-variable/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/hospitalization-variable/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"hospitalization-variable",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -1292,14 +1292,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/hospitalization-complication/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/hospitalization-complication/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"hospitalization-complication",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -1331,14 +1331,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/medical_records/hospitalization-complication/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/hospitalization-complication/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"hospitalization-complication",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -1399,14 +1399,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/hospitalization-complication/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/hospitalization-complication/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"hospitalization-complication",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -1463,14 +1463,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/trauma-register-icd10/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/trauma-register-icd10/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"trauma-register-icd10",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -1502,14 +1502,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/medical_records/trauma-register-icd10/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/trauma-register-icd10/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"trauma-register-icd10",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -1570,14 +1570,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/trauma-register-icd10/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/trauma-register-icd10/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"trauma-register-icd10",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -1634,14 +1634,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/intensive-care-unit/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/intensive-care-unit/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"intensive-care-unit",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -1673,14 +1673,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/medical_records/intensive-care-unit/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/intensive-care-unit/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"intensive-care-unit",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -1741,14 +1741,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/intensive-care-unit/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/intensive-care-unit/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"intensive-care-unit",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -1805,14 +1805,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/imaging/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/imaging/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"imaging",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -1844,14 +1844,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/medical_records/imaging/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/imaging/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"imaging",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -1912,14 +1912,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/imaging/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/imaging/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"imaging",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -1976,14 +1976,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/apparent-intent-injury/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/apparent-intent-injury/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"apparent-intent-injury",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -2015,14 +2015,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/medical_records/apparent-intent-injury/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/apparent-intent-injury/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"apparent-intent-injury",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -2083,14 +2083,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/apparent-intent-injury/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/apparent-intent-injury/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"apparent-intent-injury",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -2147,14 +2147,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/burn-injury/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/burn-injury/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"burn-injury",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -2186,14 +2186,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/medical_records/burn-injury/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/burn-injury/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"burn-injury",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -2254,14 +2254,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/burn-injury/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/burn-injury/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"burn-injury",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -2318,14 +2318,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/firearm-injury/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/firearm-injury/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"firearm-injury",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -2357,14 +2357,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/medical_records/firearm-injury/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/firearm-injury/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"firearm-injury",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -2425,14 +2425,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/firearm-injury/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/firearm-injury/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"firearm-injury",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -2489,14 +2489,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/penetrating-injury/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/penetrating-injury/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"penetrating-injury",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -2528,14 +2528,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/medical_records/penetrating-injury/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/penetrating-injury/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"penetrating-injury",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -2596,14 +2596,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/penetrating-injury/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/penetrating-injury/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"penetrating-injury",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -2660,14 +2660,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/poisoning-injury/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/poisoning-injury/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"poisoning-injury",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -2699,14 +2699,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/medical_records/poisoning-injury/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/poisoning-injury/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"poisoning-injury",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -2767,14 +2767,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/poisoning-injury/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/poisoning-injury/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"poisoning-injury",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -2831,14 +2831,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/violence-injury/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/violence-injury/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"violence-injury",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -2870,14 +2870,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/medical_records/violence-injury/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/violence-injury/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"violence-injury",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -2938,14 +2938,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/violence-injury/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/violence-injury/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"violence-injury",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -3002,14 +3002,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/device/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/device/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"device",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -3041,14 +3041,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/medical_records/device/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/device/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"device",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -3109,14 +3109,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/device/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/device/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"device",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -3173,14 +3173,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/laboratory/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/laboratory/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"laboratory",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -3212,14 +3212,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/medical_records/laboratory/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/laboratory/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"laboratory",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -3280,14 +3280,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/laboratory/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/laboratory/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"laboratory",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -3344,14 +3344,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/physical-exam-body-part-injury/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/physical-exam-body-part-injury/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"physical-exam-body-part-injury",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -3383,14 +3383,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/medical_records/physical-exam-body-part-injury/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/physical-exam-body-part-injury/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"physical-exam-body-part-injury",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -3451,14 +3451,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/physical-exam-body-part-injury/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/physical-exam-body-part-injury/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"physical-exam-body-part-injury",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -3515,14 +3515,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/procedure/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/procedure/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"procedure",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -3554,14 +3554,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/medical_records/procedure/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/procedure/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"procedure",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -3622,14 +3622,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/procedure/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/procedure/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"procedure",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -3686,14 +3686,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/prehospital-procedure/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/prehospital-procedure/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"prehospital-procedure",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -3725,14 +3725,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/medical_records/prehospital-procedure/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/prehospital-procedure/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"prehospital-procedure",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -3793,14 +3793,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/prehospital-procedure/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/prehospital-procedure/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"prehospital-procedure",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -3857,14 +3857,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/transportation-mode/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/transportation-mode/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"transportation-mode",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -3896,14 +3896,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/medical_records/transportation-mode/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/transportation-mode/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"transportation-mode",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -3964,14 +3964,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/transportation-mode/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/transportation-mode/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"transportation-mode",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -4028,14 +4028,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/vital-sign/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/vital-sign/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"vital-sign",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -4059,7 +4059,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"calificador_de_frecuencia_respiratoria\": \"Frecuencia Respiratoria EDITADA\"\r\n}",
+									"raw": "{\r\n    \"record_id\": {{id_temporal}},\r\n    \"calificador_de_frecuencia_respiratoria\": \"Frecuencia Respiratoria EDITADA\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -4067,14 +4067,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/medical_records/vital-sign/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/vital-sign/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"vital-sign",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -4135,14 +4135,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/vital-sign/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/vital-sign/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"vital-sign",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
