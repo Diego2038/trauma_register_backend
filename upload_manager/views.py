@@ -40,6 +40,7 @@ class UploadView(APIView):
       gestor_sheet=GestorExcelSheetData(),
       file_xls=temp_file.name,
     )
+    gestor_excel_file_data.inform_bad_format()
     
     try:
       result = gestor_excel_file_data.get_data_from_file()

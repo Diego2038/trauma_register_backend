@@ -3,6 +3,7 @@ import traceback
 import openpyxl
 from openpyxl.worksheet.worksheet import Worksheet
 from .gestor_excel_sheet_data import GestorExcelSheetData
+from rest_framework.exceptions import ParseError
 
 class GestorExcelFileData():
   
@@ -15,6 +16,15 @@ class GestorExcelFileData():
     self.sheets_columns_configuration = sheets_columns_configuration
     self.gestor_sheet = gestor_sheet
     self.file_xls = file_xls
+  
+  def inform_bad_format(self):
+    workbook = openpyxl.load_workbook(self.file_xls)
+    sheet_names_format: list[str] = workbook.sheetnames
+    sheet_names_current: list[str] = [ sheet.split(':')[0] for sheet in self.sheets_columns_configuration.keys() ]
+    sheet_names_current = list(set(sheet_names_current))
+    for sheet_name in sheet_names_current:
+      if not sheet_name in sheet_names_format: 
+        raise ParseError(detail=f'The sheet "{sheet_name}" in the uploaded file doesn\'t exist')
   
   def get_data_from_file(self) -> dict[str,list[dict[str,str]]]:
     """
