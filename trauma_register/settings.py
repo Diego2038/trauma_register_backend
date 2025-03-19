@@ -52,9 +52,19 @@ INSTALLED_APPS = [
     "medical_records",
     "upload_manager",
     "custom_user",
+    "corsheaders",
     "rest_framework",
     "rest_framework.authtoken",
 ]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",  # Cambia esto por la URL de tu frontend en producción
+    "http://127.0.0.1:8000",
+    "http://localhost:3000",  # Si usas otro puerto en desarrollo
+    "http://localhost:51353",  # Para el puerto variable en Flutter
+]
+
+CORS_ALLOW_CREDENTIALS = True
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
@@ -79,6 +89,7 @@ AUTH_USER_MODEL = 'custom_user.CustomUser'
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
     "django.contrib.auth.middleware.AuthenticationMiddleware",
