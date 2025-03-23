@@ -4296,6 +4296,134 @@
 			"description": "This folder contains all request to interact with user (except login)"
 		},
 		{
+			"name": "Trauma stats",
+			"item": [
+				{
+					"name": "Gender stats",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/data_analysis/gender-stats/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"data_analysis",
+								"gender-stats",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Patient ages stats",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/data_analysis/patient-age-stats/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"data_analysis",
+								"patient-age-stats",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PatientData with relations stats",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/data_analysis/patient-with-relations-stats/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"data_analysis",
+								"patient-with-relations-stats",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Post data trauma through an excel file",
 			"request": {
 				"auth": {

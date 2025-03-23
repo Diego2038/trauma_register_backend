@@ -22,6 +22,7 @@ variable_user = os.getenv('DB_USER')
 variable_password = os.getenv('DB_PASSWORD')
 variable_host = os.getenv('DB_HOST')
 variable_port = os.getenv('DB_PORT')
+variable_frontend_port = os.getenv('FRONTEND_PORT')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -61,7 +62,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",  # Cambia esto por la URL de tu frontend en producción
     "http://127.0.0.1:8000",
     "http://localhost:3000",  # Si usas otro puerto en desarrollo
-    "http://localhost:51353",  # Para el puerto variable en Flutter
+    f"http://localhost:{variable_frontend_port}", # Para el puerto variable en Flutter
 ]
 
 CORS_ALLOW_CREDENTIALS = True
