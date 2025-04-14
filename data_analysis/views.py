@@ -1,42 +1,95 @@
-from django.db.models import Count, Q, Exists, OuterRef, F, ExpressionWrapper, IntegerField, Value
+from django.db.models import Count, Q, Exists, OuterRef, F, ExpressionWrapper, IntegerField, Value, Case, When, FloatField
+from django.db.models.functions import Cast
 from django.utils.timezone import now
 from medical_records.models import *
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
+
+class AmountOfPatientDataStatsViewSet(ViewSet):
+  def list(self, request):
+    total = PatientData.objects.count()
+    return Response({"total": total})
 
 class PatientGenderStatsViewSet(ViewSet):
   def list(self, request):
     gender_counts = (
       PatientData.objects
       .values("genero")  # Agrupa por "genero"
-      .annotate(total=Count("genero"))  # Cuenta la cantidad de registros
+      .annotate(total=Count("trauma_register_record_id"))  # Cuenta la cantidad de registros, se usa el id para que cuente también los valores nulos
     )
 
-    # Convertimos valores NULL en "Desconocido"
+    # Convertimos valores NULL en "No registra"
     formatted_data = [
       {
-        'genero': item["genero"] if item["genero"] is not None else "Desconocido", 
+        'genero': item["genero"] if item["genero"] is not None else "No registra", 
         'total': item["total"]
       } for item in gender_counts
     ]
 
     return Response({"data": formatted_data})
-  
+
 class PatientAgeStatsViewSet(ViewSet):
-  def list(self, request):
-    # Calcular la edad actual sumando la diferencia de años
-    age_data = (
-      PatientData.objects
-      .values("edad")
-      .annotate(total=Count("edad"))
+   def list(self, request):
+    # Anotamos la edad en años para todos los pacientes
+    patients = PatientData.objects.annotate(
+      edad_en_anios=Case(
+        When(unidad_de_edad="Años", then=F("edad")),
+        When(edad__isnull=False, then=F("edad") / Value(12.0)),
+        default=None,
+        output_field=FloatField(),
+      )
     )
 
-    # Convertimos valores None a "Desconocido" si es necesario
+    # Inicializar los rangos
+    age_ranges = {
+      "0-10": 0,
+      "11-20": 0,
+      "21-30": 0,
+      "31-40": 0,
+      "41-50": 0,
+      "51-60": 0,
+      "61-70": 0,
+      "71-80": 0,
+      "81-90": 0,
+      "91-100": 0,
+      "100+": 0,
+      "-1": 0,
+    }
+
+    for p in patients:
+      edad = p.edad_en_anios
+
+      if edad is None:
+        age_ranges["-1"] += 1
+      elif 0 <= edad <= 10:
+        age_ranges["0-10"] += 1
+      elif 11 <= edad <= 20:
+        age_ranges["11-20"] += 1
+      elif 21 <= edad <= 30:
+        age_ranges["21-30"] += 1
+      elif 31 <= edad <= 40:
+        age_ranges["31-40"] += 1
+      elif 41 <= edad <= 50:
+        age_ranges["41-50"] += 1
+      elif 51 <= edad <= 60:
+        age_ranges["51-60"] += 1
+      elif 61 <= edad <= 70:
+        age_ranges["61-70"] += 1
+      elif 71 <= edad <= 80:
+        age_ranges["71-80"] += 1
+      elif 81 <= edad <= 90:
+        age_ranges["81-90"] += 1
+      elif 91 <= edad <= 100:
+        age_ranges["91-100"] += 1
+      elif edad > 100:
+        age_ranges["100+"] += 1
+      else:
+        age_ranges["-1"] += 1
+
     formatted_data = [
       {
-        'edad': item["edad"] if item["edad"] is not None else -1,
-        'total': item["total"]
-      } for item in age_data
+        "rango_edad": rango, "total": total
+      } for rango, total in age_ranges.items()
     ]
 
     return Response({"data": formatted_data})
@@ -150,5 +203,56 @@ class PatientDataWithRelationsStatsViewSet(ViewSet):
                 # Agrega las demás relaciones aquí 
             )
         )
+        
+        data = {
+          "Colisión": patient_counts["total_with_collision"],
+          "Abuso de drogas": patient_counts["total_with_drug_abuse"],
+          "Lesión intencional aparente": patient_counts["total_with_apparent_intent_injury"],
+          "Lesión por quemadura": patient_counts["total_with_burn_injury"],
+          "Lesión penetrante": patient_counts["total_with_penetrating_injury"],
+          "Lesión por arma de fuego": patient_counts["total_with_firearm_injury"],
+          "Lesión por envenenamiento": patient_counts["total_with_poisoning_injury"],
+          "Lesión violenta": patient_counts["total_with_violence_injury"],
+        }
 
-        return Response({"data": patient_counts})
+        return Response({"data": data})
+
+class ObtainInsuredPatientsStatsViewSet(ViewSet):
+  def list(self, request):
+    insured_data = PatientData.objects.aggregate(
+      asegurados=Count('healthcare_record', filter=Q(healthcare_record__paciente_asegurado=True)),
+      no_asegurados=Count('healthcare_record', filter=Q(healthcare_record__paciente_asegurado=False)),
+      no_registra=Count('healthcare_record', filter=Q(healthcare_record__paciente_asegurado=None)),
+      sin_informacion=Count('trauma_register_record_id', filter=Q(healthcare_record=None))
+    )
+
+    formatted_data = {
+      "Asegurados": insured_data['asegurados'],
+      "No asegurados": insured_data['no_asegurados'],
+      "No registra": insured_data['no_registra'] + insured_data['sin_informacion'],
+    }
+
+    return Response({"data": formatted_data})
+
+class TypeOfPatientAdmissionStatsViewSet(ViewSet):
+  def list(self, request):
+    insured_data = PatientData.objects.aggregate(
+      directo=Count('healthcare_record', filter=Q(healthcare_record__tipo_de_admision='Directo')),
+      emergencia=Count('healthcare_record', filter=Q(healthcare_record__tipo_de_admision='Emergencia')),
+      normal=Count('healthcare_record', filter=Q(healthcare_record__tipo_de_admision='Normal')),
+      otra=Count('healthcare_record', filter=Q(healthcare_record__tipo_de_admision='Otra')),
+      urgencia=Count('healthcare_record', filter=Q(healthcare_record__tipo_de_admision='Urgencia')),
+      no_registra=Count('healthcare_record', filter=Q(healthcare_record__tipo_de_admision=None)),
+      sin_informacion=Count('trauma_register_record_id', filter=Q(healthcare_record=None))
+    )
+
+    formatted_data = {
+      "Directo": insured_data['directo'],
+      "Emergencia": insured_data['emergencia'],
+      "Normal": insured_data['normal'],
+      "Otra": insured_data['otra'],
+      "Urgencia": insured_data['urgencia'],
+      "No registra": insured_data['no_registra'] + insured_data['sin_informacion'],
+    }
+
+    return Response({"data": formatted_data})
