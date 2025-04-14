@@ -53,14 +53,14 @@ class PatientAgeStatsViewSet(ViewSet):
       "81-90": 0,
       "91-100": 0,
       "100+": 0,
-      "-1": 0,
+      "N/A": 0,
     }
 
     for p in patients:
       edad = p.edad_en_anios
 
       if edad is None:
-        age_ranges["-1"] += 1
+        age_ranges["N/A"] += 1
       elif 0 <= edad <= 10:
         age_ranges["0-10"] += 1
       elif 11 <= edad <= 20:
@@ -84,7 +84,7 @@ class PatientAgeStatsViewSet(ViewSet):
       elif edad > 100:
         age_ranges["100+"] += 1
       else:
-        age_ranges["-1"] += 1
+        age_ranges["N/A"] += 1
 
     formatted_data = [
       {
