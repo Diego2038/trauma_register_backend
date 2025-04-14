@@ -1,5 +1,5 @@
 from rest_framework.routers import DefaultRouter
-from .views import PatientDataViewsets, HealthcareRecordViewsets, InjuryRecordViewsets, CollisionViewsets, DrugAbuseViewsets, VitalSignGcsQualifierViewsets, HospitalizationVariableViewsets, HospitalizationComplicationViewsets, TraumaRegisterIcd10Viewsets, IntensiveCareUnitViewsets, ImagingViewsets, ApparentIntentInjuryViewsets, BurnInjuryViewsets, FirearmInjuryViewsets, PenetratingInjuryViewsets, PoisoningInjuryViewsets, ViolenceInjuryViewsets, DeviceViewsets, LaboratoryViewsets, PhysicalExamBodyPartInjuryViewsets, ProcedureViewsets, PrehospitalProcedureViewsets, TransportationModeViewsets, VitalSignViewsets
+from .views import PatientDataViewsets, HealthcareRecordViewsets, InjuryRecordViewsets, CollisionViewsets, DrugAbuseViewsets, VitalSignGcsQualifierViewsets, HospitalizationVariableViewsets, HospitalizationComplicationViewsets, TraumaRegisterIcd10Viewsets, IntensiveCareUnitViewsets, ImagingViewsets, ApparentIntentInjuryViewsets, BurnInjuryViewsets, FirearmInjuryViewsets, PenetratingInjuryViewsets, PoisoningInjuryViewsets, ViolenceInjuryViewsets, DeviceViewsets, LaboratoryViewsets, PhysicalExamBodyPartInjuryViewsets, ProcedureViewsets, PrehospitalProcedureViewsets, TransportationModeViewsets, VitalSignViewsets, PatientsIdsSet
 router = DefaultRouter()
 
 router.register(r'patient-data', PatientDataViewsets, basename='patient-data')
@@ -26,5 +26,6 @@ router.register(r'procedure', ProcedureViewsets, basename='procedure')
 router.register(r'prehospital-procedure', PrehospitalProcedureViewsets, basename='prehospital-procedure')
 router.register(r'transportation-mode', TransportationModeViewsets, basename='transportation-mode')
 router.register(r'vital-sign', VitalSignViewsets, basename='vital-sign')
+router.register(r'patients-ids-stats', PatientsIdsSet, basename='patients-ids-stats')
 
 urlpatterns = router.urls

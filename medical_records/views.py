@@ -1,5 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework import viewsets, status
+from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from .serializers import PatientDataSerializer, HealthcareRecordSerializer, InjuryRecordSerializer, CollisionSerializer, DrugAbuseSerializer, VitalSignGcsQualifierSerializer, HospitalizationVariableSerializer, HospitalizationComplicationSerializer, TraumaRegisterIcd10Serializer, IntensiveCareUnitSerializer, ImagingSerializer, ApparentIntentInjurySerializer, BurnInjurySerializer, FirearmInjurySerializer, PenetratingInjurySerializer, PoisoningInjurySerializer, ViolenceInjurySerializer, DeviceSerializer, LaboratorySerializer, PhysicalExamBodyPartInjurySerializer, ProcedureSerializer, PrehospitalProcedureSerializer, TransportationModeSerializer, VitalSignSerializer
 from .models import PatientData, HealthcareRecord, InjuryRecord
@@ -315,3 +316,23 @@ class VitalSignViewsets(viewsets.ModelViewSet):
   def partial_update(self, request, *args, **kwargs):
     kwargs['partial'] = True
     return super().partial_update(request, *args, **kwargs)
+
+class PatientsIdsSet(ViewSet):
+  def list(self, request):
+    partial_id = request.data.get("trauma_register_record_id")
+    
+    if not partial_id:
+      return Response({"data": []})
+    
+    patients_ids = (
+      PatientData.objects
+      .filter(trauma_register_record_id__icontains=partial_id)
+      .values("trauma_register_record_id")
+      .distinct()[:5]
+    )
+
+    formatted_data = [
+      item['trauma_register_record_id'] for item in patients_ids
+    ]
+
+    return Response({"data": formatted_data})
