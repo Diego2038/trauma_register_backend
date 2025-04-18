@@ -2,10 +2,11 @@ from django.shortcuts import render, get_object_or_404
 
 # Create your views here.
 from rest_framework import viewsets, status
+from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.request import Request
 from .serializers import UserSerializer
 from .models import CustomUser
@@ -43,7 +44,10 @@ class UserViewset(viewsets.ModelViewSet):
             "error": 'It\'s forbidden to do this action'
         }, status=status.HTTP_403_FORBIDDEN)
     
+class VerifyTokenView(ViewSet):
     
+    def list(self, request):
+        return Response({"response": "Token válido"}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
 @permission_classes([AllowAny])
