@@ -8,7 +8,7 @@ from rest_framework.viewsets import ViewSet
 class AmountOfPatientDataStatsViewSet(ViewSet):
   def list(self, request):
     total = PatientData.objects.count()
-    return Response({"total": total})
+    return Response({"type": 'single_value', "data": total})
 
 class PatientGenderStatsViewSet(ViewSet):
   def list(self, request):
@@ -21,12 +21,12 @@ class PatientGenderStatsViewSet(ViewSet):
     # Convertimos valores NULL en "No registra"
     formatted_data = [
       {
-        'genero': item["genero"] if item["genero"] is not None else "No registra", 
+        'tag': item["genero"] if item["genero"] is not None else "No registra", 
         'total': item["total"]
       } for item in gender_counts
     ]
 
-    return Response({"data": formatted_data})
+    return Response({"type": 'categorical', "data": formatted_data})
 
 class PatientAgeStatsViewSet(ViewSet):
    def list(self, request):
@@ -88,11 +88,11 @@ class PatientAgeStatsViewSet(ViewSet):
 
     formatted_data = [
       {
-        "rango_edad": rango, "total": total
+        "tag": rango, "total": total
       } for rango, total in age_ranges.items()
     ]
 
-    return Response({"data": formatted_data})
+    return Response({"type": 'categorical', "data": formatted_data})
   
 # class PatientDataWithRelationsStatsViewSet(ViewSet):
 #   def list(self, request):
@@ -204,18 +204,42 @@ class PatientDataWithRelationsStatsViewSet(ViewSet):
             )
         )
         
-        data = {
-          "Colisión": patient_counts["total_with_collision"],
-          "Abuso de drogas": patient_counts["total_with_drug_abuse"],
-          "Lesión intencional aparente": patient_counts["total_with_apparent_intent_injury"],
-          "Lesión por quemadura": patient_counts["total_with_burn_injury"],
-          "Lesión penetrante": patient_counts["total_with_penetrating_injury"],
-          "Lesión por arma de fuego": patient_counts["total_with_firearm_injury"],
-          "Lesión por envenenamiento": patient_counts["total_with_poisoning_injury"],
-          "Lesión violenta": patient_counts["total_with_violence_injury"],
-        }
+        data = [
+          {
+            "tag": 'Colisión',
+            "total": patient_counts["total_with_collision"]
+          },
+          {
+            "tag": 'Abuso de drogas',
+            "total": patient_counts["total_with_drug_abuse"]
+          },
+          {
+            "tag": 'Lesión intencional aparente',
+            "total": patient_counts["total_with_apparent_intent_injury"]
+          },
+          {
+            "tag": 'Lesión por quemadura',
+            "total": patient_counts["total_with_burn_injury"]
+          },
+          {
+            "tag": 'Lesión penetrante',
+            "total": patient_counts["total_with_penetrating_injury"]
+          },
+          {
+            "tag": 'Lesión por arma de fuego',
+            "total": patient_counts["total_with_firearm_injury"]
+          },
+          {
+            "tag": 'Lesión por envenenamiento',
+            "total": patient_counts["total_with_poisoning_injury"]
+          },
+          {
+            "tag": 'Lesión violenta',
+            "total": patient_counts["total_with_violence_injury"]
+          },
+        ]
 
-        return Response({"data": data})
+        return Response({"type": 'categorical', "data": data})
 
 class ObtainInsuredPatientsStatsViewSet(ViewSet):
   def list(self, request):
@@ -226,13 +250,22 @@ class ObtainInsuredPatientsStatsViewSet(ViewSet):
       sin_informacion=Count('trauma_register_record_id', filter=Q(healthcare_record=None))
     )
 
-    formatted_data = {
-      "Asegurados": insured_data['asegurados'],
-      "No asegurados": insured_data['no_asegurados'],
-      "No registra": insured_data['no_registra'] + insured_data['sin_informacion'],
-    }
+    formatted_data = [
+      {
+        "tag": 'Asegurados',
+        "total": insured_data['asegurados']
+      },
+      {
+        "tag": 'No asegurados',
+        "total": insured_data['no_asegurados']
+      },
+      {
+        "tag": 'No registra',
+        "total": insured_data['no_registra'] + insured_data['sin_informacion']
+      },
+    ]
 
-    return Response({"data": formatted_data})
+    return Response({"type": 'categorical', "data": formatted_data})
 
 class TypeOfPatientAdmissionStatsViewSet(ViewSet):
   def list(self, request):
@@ -246,13 +279,31 @@ class TypeOfPatientAdmissionStatsViewSet(ViewSet):
       sin_informacion=Count('trauma_register_record_id', filter=Q(healthcare_record=None))
     )
 
-    formatted_data = {
-      "Directo": insured_data['directo'],
-      "Emergencia": insured_data['emergencia'],
-      "Normal": insured_data['normal'],
-      "Otra": insured_data['otra'],
-      "Urgencia": insured_data['urgencia'],
-      "No registra": insured_data['no_registra'] + insured_data['sin_informacion'],
-    }
+    formatted_data = [
+      {
+        "tag": 'Directo',
+        "total": insured_data['directo']
+      },
+      {
+        "tag": 'Emergencia',
+        "total": insured_data['emergencia']
+      },
+      {
+        "tag": 'Normal',
+        "total": insured_data['normal']
+      },
+      {
+        "tag": 'Otra',
+        "total": insured_data['otra']
+      },
+      {
+        "tag": 'Urgencia',
+        "total": insured_data['urgencia']
+      },
+      {
+        "tag": 'No registra',
+        "total": insured_data['no_registra'] + insured_data['sin_informacion']
+      },
+    ]
 
-    return Response({"data": formatted_data})
+    return Response({"type": 'categorical', "data": formatted_data})
