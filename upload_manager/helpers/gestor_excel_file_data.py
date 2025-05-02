@@ -24,7 +24,7 @@ class GestorExcelFileData():
     sheet_names_current = list(set(sheet_names_current))
     for sheet_name in sheet_names_current:
       if not sheet_name in sheet_names_format: 
-        raise ParseError(detail=f'The sheet "{sheet_name}" in the uploaded file doesn\'t exist')
+        raise ParseError(detail=f'No se pudo realizar la carga debido a que el formato no es correcto por la falta de la hoja "{sheet_name}" en el archivo Excel.\nPor favor utilice un formato válido.')
   
   def get_data_from_file(self) -> dict[str,list[dict[str,str]]]:
     """
