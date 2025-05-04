@@ -81,7 +81,7 @@ class UploadView(APIView):
       print(f'LOG: Time elapsed from "upload_manager/upload/" endpoint: {elapsed_time:.4f} seconds') #? Calculate time 
   
   def delete_existing_data(self, patient_data: list[dict[str,str]]) -> list[str]:
-    repeteated_users: str = []
+    repeteated_users: list[str] = []
     for data in patient_data:
       try:
         id_patient = data["trauma_register_record_id"]
@@ -93,6 +93,10 @@ class UploadView(APIView):
     print(f"LOG: Users to be updated: {len(repeteated_users)}")
     return repeteated_users
   
+  def search_existing_data(self, model : Model, trauma_register_record_id: str) -> bool :
+    data = model.objects.filter(trauma_register_record_id=trauma_register_record_id)
+    return data.exists()
+     
   
   def save_elements_by_model(self, data_file: dict[str, list[dict[str,str]]], column_name_type_to_model: dict[str,dict[str,Model|dict[str,DataTypeCell]]], existing_patients: list[str] = [], only_update: bool = False) -> list[str]:
     error_key: str = None
@@ -113,8 +117,15 @@ class UploadView(APIView):
           "value_minute": 0,
         }
         for data_row in data_sheet:
+          trauma_id_element: str = data_row["trauma_register_record_id"]
+          #! Code section to confirm only create
+          if not existing_patients:
+            existing_data = self.search_existing_data(model=model, trauma_register_record_id=trauma_id_element)
+            if existing_data: continue
+          
+          #! Code section to confirm that updated is only allowed
           if only_update and existing_patients:
-            if not data_row["trauma_register_record_id"] in existing_patients:
+            if not trauma_id_element in existing_patients:
               continue
           updated_data: dict[str,str|int|float|bool|datetime|date|time|PatientData|None] = {}
           for key_cell in data_row:
