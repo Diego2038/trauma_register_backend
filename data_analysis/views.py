@@ -1,5 +1,5 @@
 from django.db.models import Count, Q, Exists, OuterRef, F, ExpressionWrapper, IntegerField, Value, Case, When, FloatField
-from django.db.models.functions import Cast
+from django.db.models.functions import TruncDate, TruncMonth, TruncYear
 from django.utils.timezone import now
 from medical_records.models import *
 from rest_framework.response import Response
@@ -307,3 +307,40 @@ class TypeOfPatientAdmissionStatsViewSet(ViewSet):
     ]
 
     return Response({"type": 'categorical', "data": formatted_data})
+
+class TraumaCountByDateStatsViewSet(ViewSet):
+  def list(self, request):
+    granularity = request.query_params.get("granularity", "year")
+
+    if granularity == "day":
+      trunc_func = TruncDate
+      date_format = "%Y-%m-%d"
+    elif granularity == "month":
+      trunc_func = TruncMonth
+      date_format = "%Y-%m"
+    else: 
+      trunc_func = TruncYear
+      date_format = "%Y"
+
+    # Apply trunc and grouping
+    trauma_counts = (
+      InjuryRecord.objects.annotate(
+          fecha_evento=trunc_func('fecha_y_hora_del_evento')
+      )
+      .values('fecha_evento')
+      .annotate(total=Count('trauma_register_record_id'))
+      .order_by('fecha_evento')
+    )
+
+    formatted_data = [
+      {
+          "date": item['fecha_evento'].strftime(date_format),
+          "count": item['total']
+      }
+      for item in trauma_counts if item['fecha_evento']
+    ]
+
+    return Response({
+      "type": 'time_serie',
+      "data": formatted_data,
+    })

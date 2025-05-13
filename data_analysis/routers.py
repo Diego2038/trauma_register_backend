@@ -1,5 +1,5 @@
 from rest_framework.routers import DefaultRouter
-from .views import AmountOfPatientDataStatsViewSet, PatientGenderStatsViewSet, PatientAgeStatsViewSet, PatientDataWithRelationsStatsViewSet, ObtainInsuredPatientsStatsViewSet, TypeOfPatientAdmissionStatsViewSet
+from .views import AmountOfPatientDataStatsViewSet, PatientGenderStatsViewSet, PatientAgeStatsViewSet, PatientDataWithRelationsStatsViewSet, ObtainInsuredPatientsStatsViewSet, TypeOfPatientAdmissionStatsViewSet, TraumaCountByDateStatsViewSet
 
 router = DefaultRouter()
 
@@ -11,4 +11,5 @@ urlpatterns = router.urls
 router.register('obtain-insured-patients-stats', ObtainInsuredPatientsStatsViewSet, basename='obtain-insured-patients-stats')
 urlpatterns = router.urls
 router.register('type-of-patient-admission-stats', TypeOfPatientAdmissionStatsViewSet, basename='type-of-patient-admission-stats')
+router.register('trauma-count-by-date-stats', TraumaCountByDateStatsViewSet, basename='trauma-count-by-date-stats')
 urlpatterns = router.urls
