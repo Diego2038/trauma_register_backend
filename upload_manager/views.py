@@ -50,8 +50,10 @@ class UploadView(APIView):
       if update_data:
         patients_to_be_updated = self.delete_existing_data(patient_data=patients_data)
       patients_result: dict[str, list[dict[str, str]]]  = {patients_key: patients_data}
-      self.save_elements_by_model(data_file=patients_result, column_name_type_to_model=column_name_type_to_model, existing_patients=patients_to_be_updated, only_update=only_update)
-      users_not_found: list[str] = self.save_elements_by_model(data_file=result, column_name_type_to_model=column_name_type_to_model, existing_patients=patients_to_be_updated, only_update=only_update)
+      problems_in_patient_data: list[str] = self.save_elements_by_model(data_file=patients_result, column_name_type_to_model=column_name_type_to_model, existing_patients=patients_to_be_updated, only_update=only_update)
+      problems_in_elements: list[str] = self.save_elements_by_model(data_file=result, column_name_type_to_model=column_name_type_to_model, existing_patients=patients_to_be_updated, only_update=only_update)
+      
+      all_problems: list[str] = problems_in_patient_data + problems_in_elements
         
       if serializer.is_valid():
         return Response({
@@ -60,7 +62,7 @@ class UploadView(APIView):
           "only_update": only_update,
           "updated_patients": patients_to_be_updated,
           # "result": {**result},
-          "problems": users_not_found if len(users_not_found) else None,
+          "problems": all_problems if len(all_problems) else None,
         }, status=status.HTTP_202_ACCEPTED)
       return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     except ValidationError as ve:
@@ -133,90 +135,102 @@ class UploadView(APIView):
             #! Here the data is converted according with their type
             data_type_cell: DataTypeCell = column_name_type_to_model[key_file]["type"][key_cell]
             data_cell: str = data_row[key_cell].strip()
-            if data_cell == "None" or len(data_cell) == 0: continue
-            if data_type_cell == DataTypeCell.STRING or data_type_cell == DataTypeCell.TEXT:
-              updated_data[key_cell] = data_cell
-            elif data_type_cell == DataTypeCell.INT:
-              # updated_data[key_cell] = int(data_cell)
-              self._update_value_hours_and_minutes(
-                key_cell=key_cell, 
-                time_hour_minute=time_hour_minute, 
-                data_row=data_row, 
-                updated_data=updated_data,
-                foreign_value=data_cell,
-              )
-            elif data_type_cell == DataTypeCell.DECIMAL:
-              updated_data[key_cell] = float(data_cell)
-            elif data_type_cell == DataTypeCell.BOOLEAN:
-              boolean_result: bool | None
-              if (data_cell.lower() == "si" or data_cell.lower() == "sí"):
-                boolean_result = True
-              elif (data_cell.lower() == "no"):
-                boolean_result = False
-              else:
-                boolean_result = None
-              updated_data[key_cell] = boolean_result
-            elif data_type_cell == DataTypeCell.TIMESTAMP: #! It assumed that the format in excel file is saved as "DD/MM/YYYY hh:mm:ss" 
-              obtained_data = data_cell.split(" ")
-              obtained_date: list[str]
-              if "/" in obtained_data[0]:
-                obtained_date = obtained_data[0].split("/")
-              elif "-" in obtained_data[0]:
-                obtained_date = obtained_data[0].split("-")
-              else:
-                the_error = f"Date format is wrong, because this is the result: {obtained_data}"
-                raise Exception(the_error)
-              obtained_time = obtained_data[1].split(":")  
-              obtained_date_time = datetime(
-                year=int(obtained_date[2] if len(obtained_date[2]) == 4 else obtained_date[0]), #! change later, because it occurs only if the cell isn't general type
-                month=int(obtained_date[1]), 
-                day=int(obtained_date[0] if len(obtained_date[0]) == 2 else obtained_date[2]), #! change later, because it occurs only if the cell isn't general type
-                hour=int(obtained_time[0]), 
-                minute=int(obtained_time[1]), 
-                second=int(obtained_time[2]),
-                tzinfo=pytz.timezone(zone="America/Bogota")
-              )
-              updated_data[key_cell] = obtained_date_time
-            elif data_type_cell == DataTypeCell.TIME: #! It assumed that the format in excel file is saved as "hh:mm:ss"
-              obtained_data = data_cell.split(":")
-              obtained_time = time(
-                hour=int(obtained_data[0]), 
-                minute=int(obtained_data[1]), 
-                second=int(obtained_data[2]),
-                tzinfo=pytz.timezone(zone="America/Bogota"),
-              )
-              updated_data[key_cell] = obtained_time
-            elif data_type_cell == DataTypeCell.DATE: #! It assumed that the format in excel file is saved as "DD/MM/YYYY"
-              
-              obtained_data: list[str]
-              if "/" in data_cell:
-                obtained_data = data_cell.split("/")
-              elif "-" in data_cell:
-                obtained_data = data_cell.split("-")
-              else:
-                error = f"Date format is wrong"
-                raise Exception(error)
-              obtained_date = date(
-                year=int(obtained_data[2]), 
-                month=int(obtained_data[1]), 
-                day=int(obtained_data[0]),
-              )
-              updated_data[key_cell] = obtained_date
-            elif data_type_cell == DataTypeCell.FK:
-              error_id = data_cell
-              try:
-                patient_data = PatientData.objects.get(trauma_register_record_id=int(data_cell))
-                updated_data[key_cell] = patient_data
-              except PatientData.DoesNotExist as e:
-                error = f"PatienData in table <{error_table}> with key <{data_cell}> doesn't exist"
-                users_not_found_information.append(error)
-                updated_data[key_cell] = None
-                break
+            try:
+              if data_cell == "None" or len(data_cell) == 0: continue
+              if data_type_cell == DataTypeCell.STRING or data_type_cell == DataTypeCell.TEXT:
+                updated_data[key_cell] = data_cell
+              elif data_type_cell == DataTypeCell.INT:
+                # updated_data[key_cell] = int(data_cell)
+                self._update_value_hours_and_minutes(
+                  key_cell=key_cell, 
+                  time_hour_minute=time_hour_minute, 
+                  data_row=data_row, 
+                  updated_data=updated_data,
+                  foreign_value=data_cell,
+                )
+              elif data_type_cell == DataTypeCell.DECIMAL:
+                updated_data[key_cell] = float(data_cell)
+              elif data_type_cell == DataTypeCell.BOOLEAN:
+                boolean_result: bool | None
+                if (data_cell.lower() == "si" or data_cell.lower() == "sí"):
+                  boolean_result = True
+                elif (data_cell.lower() == "no"):
+                  boolean_result = False
+                elif (data_cell != None and data_cell.lower() != 'no especificado'):
+                  date_error = f"ERROR BOOLEAN: In table: <{error_table}> with trauma_register_id: <{error_id}> in field <{key_cell}>): It's not a boolean: {data_cell}"
+                  users_not_found_information.append(date_error)
+                  updated_data[key_cell] = None
+                  continue
+                else:
+                  boolean_result = None
+                updated_data[key_cell] = boolean_result
+              elif data_type_cell == DataTypeCell.TIMESTAMP: #! It assumed that the format in excel file is saved as "DD/MM/YYYY hh:mm:ss" 
+                obtained_data = data_cell.split(" ")
+                obtained_date: list[str] = []
+                if "/" in obtained_data[0]:
+                  obtained_date = obtained_data[0].split("/")
+                elif "-" in obtained_data[0]:
+                  obtained_date = obtained_data[0].split("-")
+                obtained_time = obtained_data[1].split(":")  
+                obtained_date_time = datetime(
+                  year=int(obtained_date[2] if len(obtained_date[2]) == 4 else obtained_date[0]), #! change later, because it occurs only if the cell isn't general type
+                  month=int(obtained_date[1]), 
+                  day=int(obtained_date[0] if len(obtained_date[0]) == 2 else obtained_date[2]), #! change later, because it occurs only if the cell isn't general type
+                  hour=int(obtained_time[0]), 
+                  minute=int(obtained_time[1]), 
+                  second=int(obtained_time[2]),
+                  tzinfo=pytz.timezone(zone="America/Bogota")
+                )
+                updated_data[key_cell] = obtained_date_time
+              elif data_type_cell == DataTypeCell.TIME: #! It assumed that the format in excel file is saved as "hh:mm:ss"
+                obtained_data = data_cell.split(":")
+                obtained_time = time(
+                  hour=int(obtained_data[0]), 
+                  minute=int(obtained_data[1]), 
+                  second=int(obtained_data[2]),
+                  tzinfo=pytz.timezone(zone="America/Bogota"),
+                )
+                updated_data[key_cell] = obtained_time
+              elif data_type_cell == DataTypeCell.DATE: #! It assumed that the format in excel file is saved as "DD/MM/YYYY"
+                
+                obtained_data: list[str] = []
+                if "/" in data_cell:
+                  obtained_data = data_cell.split("/")
+                elif "-" in data_cell:
+                  obtained_data = data_cell.split("-")
+                obtained_date = date(
+                  year=int(obtained_data[2]), 
+                  month=int(obtained_data[1]), 
+                  day=int(obtained_data[0]),
+                )
+                updated_data[key_cell] = obtained_date
+              elif data_type_cell == DataTypeCell.FK:
+                error_id = data_cell
+                try:
+                  patient_data = PatientData.objects.get(trauma_register_record_id=int(data_cell))
+                  updated_data[key_cell] = patient_data
+                except PatientData.DoesNotExist as e:
+                  error = f"PatienData in table <{error_table}> with key <{data_cell}> doesn't exist"
+                  users_not_found_information.append(error)
+                  updated_data[key_cell] = None
+                  break
+            except ValueError as e:
+              users_not_found_information.append(f"VALUE ERROR IN ATTRIBUTE: In table: <{error_table}> with trauma_register_id: <{error_id}>) in field <{key_cell}>: {e}")
+              updated_data[key_cell] = None
+              continue
+            except Exception as e:
+              users_not_found_information.append(f"UNKNOWN ERROR IN ATTRIBUTE: In table: <{error_table}> with trauma_register_id: <{error_id}>) in field <{key_cell}>: {e}")
+              updated_data[key_cell] = None
+              continue
           if updated_data["trauma_register_record_id"]: 
             try:
               model(**updated_data).save()
             except DataError as e:
-              users_not_found_information.append(f"ERROR CREATION: In table: <{error_table}> with trauma_register_id: <{error_id}>): {e}")
+              users_not_found_information.append(f"CREATION ERROR: In table: <{error_table}> with trauma_register_id: <{error_id}>): {e}")
+            except ValueError as e:
+              users_not_found_information.append(f"VALUE CREATION ERROR IN CREATE ELEMENT: In table: <{error_table}> with trauma_register_id: <{error_id}>): {e}")
+            except Exception as e:
+              users_not_found_information.append(f"UNKNOWN CREATION ERROR IN CREAT ELEMENT: In table: <{error_table}> with trauma_register_id: <{error_id}>): {e}")
         end_time = count_time.time() #? Calculate time
         elapsed_time = end_time - start_time  #? Calculate time
         print(f'LOG: Execution time (elements created from sheet called "{error_table}"): {elapsed_time:.4f} seconds') #? Calculate time 
@@ -267,6 +281,7 @@ class UploadView(APIView):
         time_hour_minute["value_minute"] = 0
         
       else:
+        #! If the value isn't an hour or minute, just convert it to int
         updated_data[key_cell] = int(foreign_value)
     except Exception as e:
       raise e
