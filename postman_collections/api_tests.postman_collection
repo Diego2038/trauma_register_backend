@@ -4364,16 +4364,26 @@
 								}
 							]
 						},
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"start_date\": \"2015-01-01\",\r\n    \"end_date\": \"2020-12-31\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{url}}/data_analysis/amount-of-patient-data-stats/",
+							"raw": "{{url}}/data_analysis/amount-of-patient-data-stats/0/",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"data_analysis",
 								"amount-of-patient-data-stats",
+								"0",
 								""
 							]
 						}
@@ -4405,16 +4415,26 @@
 								}
 							]
 						},
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"start_date\": \"2015-01-01\",\r\n    \"end_date\": \"2020-12-31\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{url}}/data_analysis/gender-stats/",
+							"raw": "{{url}}/data_analysis/gender-stats/0/",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"data_analysis",
 								"gender-stats",
+								"0",
 								""
 							]
 						}
@@ -4446,16 +4466,26 @@
 								}
 							]
 						},
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"start_date\": \"2015-01-01\",\r\n    \"end_date\": \"2020-12-31\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{url}}/data_analysis/patient-age-stats/",
+							"raw": "{{url}}/data_analysis/patient-age-stats/0/",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"data_analysis",
 								"patient-age-stats",
+								"0",
 								""
 							]
 						}
@@ -4487,16 +4517,26 @@
 								}
 							]
 						},
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"start_date\": \"2015-01-01\",\r\n    \"end_date\": \"2020-12-31\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{url}}/data_analysis/patient-with-relations-stats/",
+							"raw": "{{url}}/data_analysis/patient-with-relations-stats/0/",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"data_analysis",
 								"patient-with-relations-stats",
+								"0",
 								""
 							]
 						}
@@ -4528,16 +4568,26 @@
 								}
 							]
 						},
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"start_date\": \"2015-01-01\",\r\n    \"end_date\": \"2020-12-31\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{url}}/data_analysis/obtain-insured-patients-stats/",
+							"raw": "{{url}}/data_analysis/obtain-insured-patients-stats/0/",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"data_analysis",
 								"obtain-insured-patients-stats",
+								"0",
 								""
 							]
 						}
@@ -4569,16 +4619,77 @@
 								}
 							]
 						},
-						"method": "GET",
+						"method": "PUT",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"start_date\": \"2015-01-01\",\r\n    \"end_date\": \"2020-12-31\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{url}}/data_analysis/type-of-patient-admission-stats/",
+							"raw": "{{url}}/data_analysis/type-of-patient-admission-stats/0/",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"data_analysis",
 								"type-of-patient-admission-stats",
+								"0",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Trauma count by date stats",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"start_date\": \"2015-01-01\",\r\n    \"end_date\": \"2020-12-31\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/data_analysis/trauma-count-by-date-stats/0/",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"data_analysis",
+								"trauma-count-by-date-stats",
+								"0",
 								""
 							]
 						}
@@ -4608,7 +4719,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/C:/Users/juand/Desktop/trabajo_de_grado/codigo/Base de Datos original.xlsx"
+							"src": "/C:/Users/juand/Desktop/trabajo_de_grado/codigo/base_mini.xlsx"
 						},
 						{
 							"key": "user",
@@ -4635,6 +4746,59 @@
 					"path": [
 						"upload_manager",
 						"upload",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{url}}/user/verify-token/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"user",
+						"verify-token",
 						""
 					]
 				}
