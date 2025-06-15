@@ -1,19 +1,24 @@
+from django.http import HttpRequest
+from django.db.models import QuerySet
 from django.db.models import Count, Q, Exists, OuterRef, F, ExpressionWrapper, IntegerField, Value, Case, When, FloatField
 from django.db.models.functions import TruncDate, TruncMonth, TruncYear
 from django.utils.timezone import now
 from medical_records.models import *
 from rest_framework.response import Response
 from rest_framework.viewsets import ViewSet
+from datetime import datetime
 
 class AmountOfPatientDataStatsViewSet(ViewSet):
-  def list(self, request):
-    total = PatientData.objects.count()
+  def update(self, request, pk=None):
+    patientdata_queryset = FilterRequest.filterPatientDataByEmergencyDate(request)
+    total = patientdata_queryset.count()
     return Response({"type": 'single_value', "data": total})
 
 class PatientGenderStatsViewSet(ViewSet):
-  def list(self, request):
+  def update(self, request, pk=None):
+    patientdata_queryset = FilterRequest.filterPatientDataByEmergencyDate(request)
     gender_counts = (
-      PatientData.objects
+      patientdata_queryset
       .values("genero")  # Agrupa por "genero"
       .annotate(total=Count("trauma_register_record_id"))  # Cuenta la cantidad de registros, se usa el id para que cuente también los valores nulos
     )
@@ -29,9 +34,10 @@ class PatientGenderStatsViewSet(ViewSet):
     return Response({"type": 'categorical', "data": formatted_data})
 
 class PatientAgeStatsViewSet(ViewSet):
-   def list(self, request):
+   def update(self, request, pk=None):
     # Anotamos la edad en años para todos los pacientes
-    patients = PatientData.objects.annotate(
+    patientdata_queryset = FilterRequest.filterPatientDataByEmergencyDate(request)
+    patients = patientdata_queryset.annotate(
       edad_en_anios=Case(
         When(unidad_de_edad="Años", then=F("edad")),
         When(edad__isnull=False, then=F("edad") / Value(12.0)),
@@ -149,9 +155,10 @@ class PatientAgeStatsViewSet(ViewSet):
 #     return Response({"data": patient_counts})
 
 class PatientDataWithRelationsStatsViewSet(ViewSet):
-    def list(self, request):
+    def update(self, request, pk=None):
+        patientdata_queryset = FilterRequest.filterPatientDataByEmergencyDate(request)
         patient_counts = (
-            PatientData.objects
+            patientdata_queryset
             .annotate(
                 has_collision=Exists(Collision.objects.filter(trauma_register_record_id=OuterRef("trauma_register_record_id"))),
                 has_drug_abuse=Exists(DrugAbuse.objects.filter(trauma_register_record_id=OuterRef("trauma_register_record_id"))),
@@ -242,8 +249,9 @@ class PatientDataWithRelationsStatsViewSet(ViewSet):
         return Response({"type": 'categorical', "data": data})
 
 class ObtainInsuredPatientsStatsViewSet(ViewSet):
-  def list(self, request):
-    insured_data = PatientData.objects.aggregate(
+  def update(self, request, pk=None):
+    patientdata_queryset = FilterRequest.filterPatientDataByEmergencyDate(request)
+    insured_data = patientdata_queryset.aggregate(
       asegurados=Count('healthcare_record', filter=Q(healthcare_record__paciente_asegurado=True)),
       no_asegurados=Count('healthcare_record', filter=Q(healthcare_record__paciente_asegurado=False)),
       no_registra=Count('healthcare_record', filter=Q(healthcare_record__paciente_asegurado=None)),
@@ -268,15 +276,18 @@ class ObtainInsuredPatientsStatsViewSet(ViewSet):
     return Response({"type": 'categorical', "data": formatted_data})
 
 class TypeOfPatientAdmissionStatsViewSet(ViewSet):
-  def list(self, request):
-    insured_data = PatientData.objects.aggregate(
+  def update(self, request, pk=None):
+    patientdata_queryset = FilterRequest.filterPatientDataByEmergencyDate(request)
+    insured_data = patientdata_queryset.aggregate(
       directo=Count('healthcare_record', filter=Q(healthcare_record__tipo_de_admision='Directo')),
       emergencia=Count('healthcare_record', filter=Q(healthcare_record__tipo_de_admision='Emergencia')),
       normal=Count('healthcare_record', filter=Q(healthcare_record__tipo_de_admision='Normal')),
       otra=Count('healthcare_record', filter=Q(healthcare_record__tipo_de_admision='Otra')),
       urgencia=Count('healthcare_record', filter=Q(healthcare_record__tipo_de_admision='Urgencia')),
-      no_registra=Count('healthcare_record', filter=Q(healthcare_record__tipo_de_admision=None)),
-      sin_informacion=Count('trauma_register_record_id', filter=Q(healthcare_record=None))
+      # Count patients with healthcare_record where tipo_de_admision is None
+      no_registra=Count('healthcare_record', filter=Q(healthcare_record__tipo_de_admision__isnull=True)),
+      # Count patients without a related healthcare_record
+      sin_informacion=Count('trauma_register_record_id', filter=Q(healthcare_record__isnull=True))
     )
 
     formatted_data = [
@@ -309,8 +320,9 @@ class TypeOfPatientAdmissionStatsViewSet(ViewSet):
     return Response({"type": 'categorical', "data": formatted_data})
 
 class TraumaCountByDateStatsViewSet(ViewSet):
-  def list(self, request):
+  def update(self, request, pk=None):
     granularity = request.query_params.get("granularity", "year")
+    date_format = ""
 
     if granularity == "day":
       trunc_func = TruncDate
@@ -322,9 +334,10 @@ class TraumaCountByDateStatsViewSet(ViewSet):
       trunc_func = TruncYear
       date_format = "%Y"
 
+    injuryrecord_queryset = FilterRequest.filterInjuryRecordByEventDate(request)
     # Apply trunc and grouping
     trauma_counts = (
-      InjuryRecord.objects.annotate(
+      injuryrecord_queryset.annotate(
           fecha_evento=trunc_func('fecha_y_hora_del_evento')
       )
       .values('fecha_evento')
@@ -344,3 +357,62 @@ class TraumaCountByDateStatsViewSet(ViewSet):
       "type": 'time_serie',
       "data": formatted_data,
     })
+
+# Class to filters
+class FilterRequest:
+  @staticmethod
+  def filterPatientDataByEmergencyDate(request: HttpRequest) -> QuerySet[PatientData]:
+    queryset: QuerySet[PatientData] = PatientData.objects.all()
+    
+    start_date_str = request.data.get('start_date')
+    end_date_str = request.data.get('end_date')
+    
+    if start_date_str:
+      try:
+        start_date = datetime.strptime(start_date_str, '%Y-%m-%d').date()
+        queryset = queryset.filter(
+          healthcare_record__fecha_y_hora_de_llegada_del_paciente__isnull=False, # Assure that that field should be a not null value
+          healthcare_record__fecha_y_hora_de_llegada_del_paciente__date__gte=start_date # Count only those patients that have a healthcare_record with a date greater than or equal to the start_date
+        )
+      except ValueError:
+        pass
+    
+    if end_date_str:
+      try:
+        end_date_str = datetime.strptime(end_date_str, '%Y-%m-%d').date()
+        queryset = queryset.filter(
+          healthcare_record__fecha_y_hora_de_alta__isnull=False, # Assure that that field should be a not null value
+          healthcare_record__fecha_y_hora_de_alta__date__lte=end_date_str # Count only those patients that have a healthcare_record with a date less than or equal to the end_date
+        )
+      except ValueError:
+        pass
+    return queryset
+  
+  @staticmethod
+  def filterInjuryRecordByEventDate(request: HttpRequest) -> QuerySet[InjuryRecord]:
+    queryset: QuerySet[InjuryRecord] = InjuryRecord.objects.all()
+
+    start_date_str = request.data.get('start_date')
+    end_date_str = request.data.get('end_date')
+
+    if start_date_str:
+      try:
+        start_date = datetime.strptime(start_date_str, '%Y-%m-%d').date()
+        queryset = queryset.filter(
+          fecha_y_hora_del_evento__isnull=False,
+          fecha_y_hora_del_evento__date__gte=start_date
+        )
+      except ValueError:
+        pass
+
+    if end_date_str:
+      try:
+        end_date = datetime.strptime(end_date_str, '%Y-%m-%d').date()
+        queryset = queryset.filter(
+          fecha_y_hora_del_evento__isnull=False,
+          fecha_y_hora_del_evento__date__lte=end_date
+        )
+      except ValueError:
+        pass
+
+    return queryset
