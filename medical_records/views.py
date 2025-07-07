@@ -10,6 +10,15 @@ class PatientDataViewsets(viewsets.ModelViewSet):
   queryset = PatientDataSerializer.Meta.model.objects.all()
   lookup_field = 'trauma_register_record_id'
   
+  def create(self, request, *args, **kwargs):
+    serializer = self.get_serializer(data=request.data)
+    if serializer.is_valid():
+        self.perform_create(serializer)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    else:
+        print("Errores del serializer:", serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+  
   def partial_update(self, request, *args, **kwargs):
     kwargs['partial'] = True
     return super().partial_update(request, *args, **kwargs)
