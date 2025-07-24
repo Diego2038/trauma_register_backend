@@ -84,6 +84,9 @@
 						},
 						{
 							"name": "get Patient data by ID",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
 							"request": {
 								"auth": {
 									"type": "bearer",
@@ -97,6 +100,15 @@
 								},
 								"method": "GET",
 								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
 								"url": {
 									"raw": "{{url}}/medical_records/patient-data/{{trauma_register_record_id}}/",
 									"host": [
@@ -307,14 +319,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/healthcare-record/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/healthcare-record/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"healthcare-record",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -346,14 +358,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/medical_records/healthcare-record/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/healthcare-record/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"healthcare-record",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -414,14 +426,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/healthcare-record/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/healthcare-record/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"healthcare-record",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -478,14 +490,14 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/injury-record/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/injury-record/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"injury-record",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -517,14 +529,14 @@
 									}
 								},
 								"url": {
-									"raw": "{{url}}/medical_records/injury-record/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/injury-record/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"injury-record",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -585,14 +597,14 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "{{url}}/medical_records/injury-record/{{trauma_register_record_id}}/",
+									"raw": "{{url}}/medical_records/injury-record/{{id_temporal}}/",
 									"host": [
 										"{{url}}"
 									],
 									"path": [
 										"medical_records",
 										"injury-record",
-										"{{trauma_register_record_id}}",
+										"{{id_temporal}}",
 										""
 									]
 								}
@@ -719,7 +731,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"tipo_de_colision\": \"Peatón vs. vehículo de dos o tres ruedas\",\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
+									"raw": "{\r\n    \"tipo_de_colision\": \"No especificado\",\r\n    \"trauma_register_record_id\": {{trauma_register_record_id}}\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
