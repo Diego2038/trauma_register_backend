@@ -57,106 +57,18 @@ class PatientDataViewsets(viewsets.ModelViewSet):
 class HealthcareRecordViewsets(viewsets.ModelViewSet):
   serializer_class = HealthcareRecordSerializer
   queryset = HealthcareRecordSerializer.Meta.model.objects.all()
-  lookup_field = 'trauma_register_record_id'
   
   def partial_update(self, request, *args, **kwargs):
     kwargs['partial'] = True
     return super().partial_update(request, *args, **kwargs)
-  
-  def update(self, request, trauma_register_record_id=None, *args, **kwargs):
-    patient_data = get_object_or_404(
-      PatientData,
-      trauma_register_record_id=trauma_register_record_id,
-    )
-    data = get_object_or_404(
-      HealthcareRecord,
-      trauma_register_record_id=patient_data,
-    )
-    serializer = self.get_serializer(
-      data, 
-      data=request.data, 
-      partial=True
-    )
-    if serializer.is_valid(raise_exception=True):
-      self.perform_update(serializer)
-      return Response(serializer.data)
-    return Response(serializer.errors)
-  
-  def retrieve(self, request, trauma_register_record_id=None, *args, **kwargs):
-    patient_data = get_object_or_404(
-      PatientData,
-      trauma_register_record_id=trauma_register_record_id,
-    )
-    data = get_object_or_404(
-      HealthcareRecord,
-      trauma_register_record_id=patient_data,
-    )
-    serializer = HealthcareRecordSerializer(data)
-    return Response(serializer.data)
-  
-  def destroy(self, request, trauma_register_record_id=None, *args, **kwargs):
-    patient_data = get_object_or_404(
-      PatientData, 
-      trauma_register_record_id=trauma_register_record_id,
-    )
-    data = get_object_or_404(
-      HealthcareRecord,
-      trauma_register_record_id=patient_data,
-    )
-    self.perform_destroy(data)
-    return Response(status=status.HTTP_204_NO_CONTENT)
 
 class InjuryRecordViewsets(viewsets.ModelViewSet):
   serializer_class = InjuryRecordSerializer
   queryset = InjuryRecordSerializer.Meta.model.objects.all()
-  lookup_field = 'trauma_register_record_id'
   
   def partial_update(self, request, *args, **kwargs):
     kwargs['partial'] = True
     return super().partial_update(request, *args, **kwargs)
-  
-  def update(self, request, trauma_register_record_id=None, *args, **kwargs):
-    patient_data = get_object_or_404(
-      PatientData,
-      trauma_register_record_id=trauma_register_record_id,
-    )
-    data = get_object_or_404(
-      InjuryRecord,
-      trauma_register_record_id=patient_data,
-    )
-    serializer = self.get_serializer(
-      data, 
-      data=request.data, 
-      partial=True
-    )
-    if serializer.is_valid(raise_exception=True):
-      self.perform_update(serializer)
-      return Response(serializer.data)
-    return Response(serializer.errors)
-  
-  def retrieve(self, request, trauma_register_record_id=None, *args, **kwargs):
-    patient_data = get_object_or_404(
-      PatientData,
-      trauma_register_record_id=trauma_register_record_id,
-    )
-    data = get_object_or_404(
-      InjuryRecord,
-      trauma_register_record_id=patient_data,
-    )
-    serializer = InjuryRecordSerializer(data)
-    return Response(serializer.data)
-  
-  def destroy(self, request, trauma_register_record_id=None, *args, **kwargs):
-    patient_data = get_object_or_404(
-      PatientData, 
-      trauma_register_record_id=trauma_register_record_id,
-    )
-    data = get_object_or_404(
-      InjuryRecord,
-      trauma_register_record_id=patient_data,
-    )
-    self.perform_destroy(data)
-    return Response(status=status.HTTP_204_NO_CONTENT)
   
 class CollisionViewsets(viewsets.ModelViewSet):
   serializer_class = CollisionSerializer
