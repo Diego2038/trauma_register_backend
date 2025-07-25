@@ -382,7 +382,7 @@ class TransportationMode(models.Model):
 
 # VitalSign Model
 class VitalSign(models.Model):
-    record_id = models.BigIntegerField(primary_key=True)
+    record_id = models.BigIntegerField(blank=False, unique=True)
     trauma_register_record_id = models.ForeignKey("PatientData", on_delete=models.CASCADE, db_column="trauma_register_record_id", related_name="vital_sign", blank=True, null=False)
     fecha_y_hora_de_signos_vitales = models.DateTimeField(null=True, blank=True, default=None)
     signos_de_vida = models.BooleanField(null=True, blank=True, default=None)

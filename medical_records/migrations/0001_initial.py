@@ -1477,8 +1477,17 @@ class Migration(migrations.Migration):
             name="VitalSign",
             fields=[
                 (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
                     "record_id",
-                    models.BigIntegerField(primary_key=True, serialize=False),
+                    models.BigIntegerField(blank=False, unique=True, serialize=False),
                 ),
                 (
                     "fecha_y_hora_de_signos_vitales",
