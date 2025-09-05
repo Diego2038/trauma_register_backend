@@ -129,5 +129,5 @@ except Exception as e:
   print(f"Error de lectura: {str(e)} - {e}")
 
 finally:
-  workbook.close
+  workbook.close()
   """
