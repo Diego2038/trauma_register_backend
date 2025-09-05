@@ -65,7 +65,7 @@ class GestorExcelFileData():
       traceback.print_exc()
 
     finally:
-      workbook.close
+      workbook.close()
 
 ### Use example
 
