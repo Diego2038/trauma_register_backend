@@ -4285,7 +4285,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"admin22\",\r\n    \"password\": \"admin22\"\r\n    \r\n}",
+							"raw": "{\r\n    \"username\": \"admin123\",\r\n    \"email\": \"pepe@gmail.com\"\r\n    // Es necesario que exista de antemano un usuario creado con el username \"admin123\"\r\n    \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -4293,14 +4293,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/user/user/0/",
+							"raw": "{{url}}/user/user/admin123/",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"user",
 								"user",
-								"0",
+								"admin123",
 								""
 							]
 						}
