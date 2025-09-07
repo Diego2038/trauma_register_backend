@@ -94,6 +94,33 @@ deactivate
 - Click on the **Run** button to execute the requests in the collection.
 - You can also run individual requests by selecting them and clicking the **Send** button.
 
+## How to make unit tests
 
-### Note:
-If you're in a distro linux and ***psycopg2*** fails, please use ***psycopg2-binary*** instead
+
+1. **Open the terminal in the project root**
+
+2. **Execute the unit tests established in the tests.py files:**
+- Apply the next command to execute all unit tests:
+```
+python manage.py test
+```
+- If you want to execute only a specific group of tests according with the app, insert the app name, for example:
+```
+python manage.py test custom_user
+```
+3. **Calculate the coverage**
+- Execute the next command if you want to know the coverage of the unit tests implemented:
+```
+coverage run manage.py test
+```
+4. **Generate a report of the coverage**
+- To generate a report in HTML, execute the next command:
+```
+coverage report
+```
+- Then, execute the HTML project through a web page visualization tool. Tools like Live Server or the NPM package http-server can be used for this purpose. In this case, the http-server tool will be used (you can find its documentation [here](https://www.npmjs.com/package/http-server)).
+Run the following command:
+
+```
+http-server htmlcov
+```
