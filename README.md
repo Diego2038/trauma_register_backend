@@ -1,3 +1,22 @@
+# Trauma register backend
+
+## Project Overview
+This repository contains the source code for the backend component of a data management application designed for the emergency care context. The system is built to manage a structured dataset of patient information, providing a robust foundation for the application's functionality. <br>
+This project is part of a graduation thesis to obtain a degree in Systems Engineering from Universidad del Valle
+
+## Key Features
+The backend is structured to support several essential functionalities, organized into three main modules:
+
+1. **Patient Management**: Allows users to interact with individual patient data, facilitating operations such as creating, reading, updating, and deleting records. 🧑‍⚕️
+
+2. **Statistical Visualization**: Processes and prepares data for the generation of statistical charts, offering a clear view of various data dimensions. 📊
+
+3. **Bulk Data Upload**: Enables the efficient upload of large volumes of data, which is crucial for integrating new information into the system.📂
+
+## Project Components
+This backend repository is complemented by the frontend repository, which handles the user interface. You can find the frontend project [here](https://github.com/Diego2038/trauma_register_frontend).
+
+**Important clarification**: If you want to run this backend repository with the frontend repository mentioned above, you must modify the ***FRONTEND_PORT*** variable in the .env file with the port that the frontend application has been uploaded to, so that the frontend application can receive the CORS properly and thus the communication works normally.
 
 ## Considerations
 A **.env** file must be created to set the pertinent state variables, just as it is in the **.env.example** file, there the specifications for the connection to the database will be defined via Postgres.<br><br>
@@ -64,6 +83,13 @@ To close the virtual environment:
 deactivate
 ``` 
 
+## How to create an user in this application
+Currently the only implemented way to create a user in the application is through Django, for this you must execute the following command:
+```
+python .\manage.py createsuperuser
+``` 
+After having entered the ***username***, ***email*** and ***password*** data (it is recommended to fill in the username as admin2 and the password as admin2, since this is how it is set in Postman tests, but any allowed value can be inserted), in order to interact with the application it is strictly necessary to confirm the credentials through the ***username*** and ***password*** that you previously created, so that you can use the authentication token (for more information see follow the steps in the module "How to recreate the postman", and execute the request "Login user" with your credentials).
+
 ## How to recreate the postman
 
 
@@ -93,6 +119,11 @@ deactivate
 - Select the imported collection **api_tests**.
 - Click on the **Run** button to execute the requests in the collection.
 - You can also run individual requests by selecting them and clicking the **Send** button.
+
+6. **First request:**
+-  After you have successfully completed all the steps, look for the ***Login user*** request, modifying the respective ***username*** and ***password*** credentials with which you created in the previous step with the "createsuperuser" command.
+- Once this step is completed and the response is an HTTP 200 code, you can execute the other requests. 
+- It's not necessary to save the token, since the environment variables you created in the previous steps already store it so it can be automatically used in other requests that require it.
 
 ## How to make unit tests
 
