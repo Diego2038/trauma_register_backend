@@ -6,8 +6,10 @@ from openpyxl import Workbook
 from openpyxl.worksheet.worksheet import Worksheet
 from rest_framework.exceptions import ParseError
 from unittest.mock import MagicMock
+from .views import UploadView
 from .helpers.gestor_excel_sheet_data import GestorExcelSheetData
 from .helpers.gestor_excel_file_data import GestorExcelFileData
+from .helpers.columns_configuration import DataTypeCell, PatientData
 
 
 class GestorExcelSheetDataTest(TestCase):
@@ -266,3 +268,181 @@ class GestorExcelFileDataTest(TestCase):
     # En tu código actual, `get_data_from_file` devuelve `None` en caso de excepción.
     result = gestor.get_data_from_file()
     self.assertIsNone(result)
+  
+
+class UploadViewTest(TestCase):
+  """
+  Clase de pruebas unitarias para la vista UploadView.
+  """
+
+  def setUp(self):
+    # Instancia de la vista para probar sus métodos auxiliares
+    self.view = UploadView()
+
+    # Mocks para dependencias
+    self.mock_patient_model = MagicMock()
+    self.mock_model_1 = MagicMock()
+    self.mock_model_2 = MagicMock()
+    
+    # Diccionarios de prueba
+    self.patient_data_list = [
+      {"trauma_register_record_id": "1", "name": "Patient 1"},
+      {"trauma_register_record_id": "2", "name": "Patient 2"},
+      {"trauma_register_record_id": "3", "name": "Patient 3"},
+    ]
+    
+    self.data_file_for_save = {
+      "PatientData:1": [
+        {"trauma_register_record_id": "1", "string_field": "test string", "int_field": "10", "bool_field": "si", "date_field": "10/01/2023"},
+      ],
+      "OtherData:2": [
+        {"trauma_register_record_id": "1", "int_field": "120", "minute_field": "15"},
+      ]
+    }
+    
+    self.columns_config_for_save = {
+      "PatientData:1": {
+        "model": self.mock_patient_model,
+        "type": {
+          "trauma_register_record_id": DataTypeCell.INT,
+          "string_field": DataTypeCell.STRING,
+          "int_field": DataTypeCell.INT,
+          "bool_field": DataTypeCell.BOOLEAN,
+          "date_field": DataTypeCell.DATE,
+        }
+      },
+      "OtherData:2": {
+        "model": self.mock_model_1,
+        "type": {
+          "trauma_register_record_id": DataTypeCell.INT,
+          "int_field": DataTypeCell.INT,
+          "minute_field": DataTypeCell.INT,
+        }
+      }
+    }
+      
+  # --- Pruebas para el método delete_existing_data ---
+
+  @patch('upload_manager.views.PatientData.objects')
+  def test_delete_existing_data_deletes_patients(self, mock_objects):
+    """
+    Prueba que el método delete_existing_data elimina pacientes existentes y devuelve sus IDs.
+    """
+    # Configuramos el mock para que `get` devuelva un objeto, simulando que el paciente existe.
+    mock_patient_1 = MagicMock()
+    mock_patient_1.delete.return_value = None
+    
+    # Simulamos que el paciente 1 existe y el 2 y 3 no
+    def mock_get(trauma_register_record_id):
+      if trauma_register_record_id == 1:
+        return mock_patient_1
+      raise PatientData.DoesNotExist
+    
+    mock_objects.get.side_effect = mock_get
+    
+    # Ejecutamos el método
+    patient_data = [{"trauma_register_record_id": "1"}]
+    repeteated_users = self.view.delete_existing_data(patient_data=patient_data)
+    
+    # Verificamos que el método get y delete fueron llamados
+    mock_objects.get.assert_called_with(trauma_register_record_id=1)
+    mock_patient_1.delete.assert_called_once()
+    
+    # Verificamos el resultado
+    self.assertEqual(repeteated_users, ["1"])
+
+  @patch('upload_manager.views.PatientData.objects')
+  def test_delete_existing_data_skips_non_existing_patients(self, mock_objects):
+    """
+    Prueba que el método delete_existing_data no hace nada para pacientes que no existen.
+    """
+    # Configuramos el mock para que `get` siempre lance DoesNotExist
+    mock_objects.get.side_effect = PatientData.DoesNotExist
+    
+    patient_data = [{"trauma_register_record_id": "1"}]
+    repeteated_users = self.view.delete_existing_data(patient_data=patient_data)
+
+    # Verificamos que se llamó a get, pero delete no
+    mock_objects.get.assert_called_with(trauma_register_record_id=1)
+    self.assertEqual(repeteated_users, [])
+
+  # --- Pruebas para el método search_existing_data ---
+
+  def test_search_existing_data_finds_existing(self):
+    """
+    Prueba que search_existing_data devuelve True si el dato existe.
+    """
+    # Creamos un mock de un modelo que tiene un gestor 'objects'
+    mock_model = MagicMock()
+    mock_model.objects.filter.return_value.exists.return_value = True
+    
+    result = self.view.search_existing_data(model=mock_model, trauma_register_record_id=1)
+    
+    self.assertTrue(result)
+    mock_model.objects.filter.assert_called_once_with(trauma_register_record_id=1)
+
+  def test_search_existing_data_finds_none(self):
+    """
+    Prueba que search_existing_data devuelve False si el dato no existe.
+    """
+    mock_model = MagicMock()
+    mock_model.objects.filter.return_value.exists.return_value = False
+    
+    result = self.view.search_existing_data(model=mock_model, trauma_register_record_id=1)
+    
+    self.assertFalse(result)
+    mock_model.objects.filter.assert_called_once_with(trauma_register_record_id=1)
+
+  # --- Pruebas para el método save_elements_by_model ---
+  
+  @patch('upload_manager.views.UploadView.search_existing_data', return_value=False)
+  def test_save_elements_by_model_saves_new_data(self, mock_search):
+    """
+    Prueba que el método guarda datos nuevos cuando 'only_update' es False.
+    """
+    with patch('upload_manager.views.PatientData.objects.get') as mock_get:
+      mock_get.return_value = MagicMock(trauma_register_record_id=1)
+      
+      # Mockeamos el método save del modelo
+      self.mock_patient_model.return_value = MagicMock()
+      self.mock_model_1.return_value = MagicMock()
+      
+      result = self.view.save_elements_by_model(
+        data_file=self.data_file_for_save,
+        column_name_type_to_model=self.columns_config_for_save,
+        only_update=False,
+      )
+      
+      # Verificamos que se intentó guardar los modelos
+      self.mock_patient_model.assert_called_once()
+      self.mock_model_1.assert_called_once()
+      
+      # Verificamos que se llamaron a los métodos save()
+      self.mock_patient_model.return_value.save.assert_called_once()
+      self.mock_model_1.return_value.save.assert_called_once()
+      
+      # Verificamos que no se encontraron errores
+      self.assertEqual(result, [])
+
+  @patch('upload_manager.views.UploadView.search_existing_data', return_value=True)
+  def test_save_elements_by_model_skips_existing_when_only_create(self, mock_search):
+    """
+    Prueba que el método omite la creación de datos existentes cuando `existing_patients` es None.
+    """
+    with patch('upload_manager.views.PatientData.objects.get') as mock_get:
+      mock_get.return_value = MagicMock(trauma_register_record_id=1)
+      
+      # Configuramos los mocks de los modelos para que lancen un error si se llama a save,
+      # lo cual confirmará que no se llamaron.
+      self.mock_patient_model.return_value.save.side_effect = AssertionError("Save should not be called")
+      self.mock_model_1.return_value.save.side_effect = AssertionError("Save should not be called")
+
+      result = self.view.save_elements_by_model(
+        data_file=self.data_file_for_save,
+        column_name_type_to_model=self.columns_config_for_save,
+        only_update=False,
+      )
+
+      # Verificamos que no se encontraron errores
+      self.assertEqual(result, [])
+      # Las aserciones de save en los mocks de modelo validarán que no se llamó a save()
