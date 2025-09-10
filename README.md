@@ -18,10 +18,25 @@ This backend repository is complemented by the frontend repository, which handle
 
 **Important clarification**: If you want to run this backend repository with the frontend repository mentioned above, you must modify the ***FRONTEND_PORT*** variable in the .env file with the port that the frontend application has been uploaded to, so that the frontend application can receive the CORS properly and thus the communication works normally.
 
+## Technologies Used
+
+This project is built using a robust and modern technology stack to ensure performance, scalability, and ease of maintenance.
+
+* **Python:** The core language for the backend, version 3.10.0.
+
+* **Django:** The high-level Python web framework that provides the foundational structure for the application.
+
+* **PostgreSQL:** The relational database management system used for data storage, it's recommended to use the version 15.
+
+* **Django REST Framework:** A powerful toolkit for building Web APIs.
+
+* **virtualenv:** The tool used to manage the isolated Python virtual environment.
+
+* **NPM:** Used optionally for serving the HTML test coverage report.
+
 ## Considerations
 A **.env** file must be created to set the pertinent state variables, just as it is in the **.env.example** file, there the specifications for the connection to the database will be defined via Postgres.<br><br>
 In Postgres you have to create a database with the same name as defined in the **.env** file for the ***NAME_DATABASE*** variable to establish the connection between Django and the database in Postgres, also with the username, password, host and port.
-The python version used is 3.10.8
 
 ## How to execute the code
 
