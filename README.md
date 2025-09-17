@@ -38,11 +38,14 @@ This project is built using a robust and modern technology stack to ensure perfo
 A **.env** file must be created to set the pertinent state variables, just as it is in the **.env.example** file, there the specifications for the connection to the database will be defined via Postgres.<br><br>
 In Postgres you have to create a database with the same name as defined in the **.env** file for the ***NAME_DATABASE*** variable to establish the connection between Django and the database in Postgres, also with the username, password, host and port.
 
-## How to execute the code
+## How to execute this repository
 
-To create the virtual environment download the "virtualenv" library via pip.
-
-<br>
+First download this repo through the next command:
+```
+git clone https://github.com/Diego2038/trauma_register_backend.git
+```
+<br> 
+In the project root, create the virtual environment by first installing the "virtualenv" library using pip.
 
 ```
 pip install virtualenv 
