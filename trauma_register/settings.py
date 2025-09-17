@@ -10,10 +10,19 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+"""
+Command to execute server in windows:
+waitress-serve --listen=0.0.0.0:8000 trauma_register.wsgi.application
+
+Command to execute server in macos/linux:
+gunicorn --bind 0.0.0.0:8000 trauma_register.wsgi
+"""
+
 from datetime import timedelta
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import dj_database_url
 
 load_dotenv(override=True)
 
@@ -23,6 +32,7 @@ variable_password = os.getenv('DB_PASSWORD')
 variable_host = os.getenv('DB_HOST')
 variable_port = os.getenv('DB_PORT')
 variable_frontend_port = os.getenv('FRONTEND_PORT')
+variable_database_url = os.getenv('DATABASE_URL')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,7 +47,7 @@ SECRET_KEY = "django-insecure-@r5-3kkn1p$b_ok0hwt#!-8i0b)700ri6h!m@f8c*mk^y%1-mx
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -77,7 +87,7 @@ REST_FRAMEWORK = {
 }
 
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=25),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=60),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ROTATE_REFRESH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
@@ -122,7 +132,11 @@ WSGI_APPLICATION = "trauma_register.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
+if variable_database_url:
+    DATABASES = {
+        "default": dj_database_url.parse(variable_database_url),
+    }
+else: DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": variable_name_database,

@@ -1,0 +1,1 @@
+web: gunicorn trauma_register.wsgi --log-file -
