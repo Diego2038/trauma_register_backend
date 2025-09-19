@@ -72,7 +72,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8000",  # Cambia esto por la URL de tu frontend en producción
     "http://127.0.0.1:8000",
     "http://localhost:3000",  # Si usas otro puerto en desarrollo
-    "https://diego2038.github.io/trauma_register_frontend/",
+    "https://diego2038.github.io/trauma_register_frontend",
     "https://ephemeral-llama-5087ad.netlify.app",
     f"http://localhost:{variable_frontend_port}", # Para el puerto variable en Flutter
 ]
